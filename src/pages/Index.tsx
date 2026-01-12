@@ -3,7 +3,8 @@ import { useLenis } from '@/hooks/useLenis';
 import Navigation from '@/components/Navigation';
 import LiquidCursor from '@/components/LiquidCursor';
 import LoadingScreen from '@/components/LoadingScreen';
-import HeroSection from '@/components/sections/HeroSection';
+import WebGLHero from '@/components/sections/WebGLHero';
+import HorizontalGallery from '@/components/sections/HorizontalGallery';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import AboutSection from '@/components/sections/AboutSection';
 import BlogSection from '@/components/sections/BlogSection';
@@ -45,7 +46,13 @@ const Index = () => {
           <Navigation />
           
           <main>
-            <HeroSection />
+            {/* WebGL Hero with liquid distortion */}
+            <WebGLHero />
+            
+            {/* Horizontal scrolling gallery */}
+            <HorizontalGallery />
+            
+            {/* Other sections */}
             <ProjectsSection />
             <AboutSection />
             <BlogSection />
