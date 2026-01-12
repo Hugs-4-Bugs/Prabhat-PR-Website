@@ -13,10 +13,10 @@ const Navigation = () => {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
+    { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
-    { name: 'About', href: '#about' },
     { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -65,6 +65,8 @@ const Navigation = () => {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden text-primary-foreground p-2"
               data-cursor-hover
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
             >
               <motion.div className="w-6 flex flex-col gap-1.5">
                 <motion.span

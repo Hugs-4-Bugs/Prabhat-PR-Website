@@ -4,10 +4,10 @@ import ParallaxSection from '@/components/ParallaxSection';
 import oceanIslands from '@/assets/ocean-islands.jpg';
 
 const socialLinks = [
-  { name: 'GitHub', url: 'https://github.com/prabhat-kumar' },
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/prabhat-kumar' },
-  { name: 'Twitter', url: 'https://twitter.com/prabhat' },
-  { name: 'Portfolio', url: 'https://prabhat-codes.vercel.app' },
+  { name: 'GitHub', url: 'https://github.com/Hugs-4-Bugs' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/prabhat-kumar-6963661a4/' },
+  { name: 'Instagram', url: 'https://www.instagram.com/_s_4_sharma/' },
+  { name: 'Portfolio', url: 'https://prabhat-codes.vercel.app/' },
 ];
 
 const ContactSection = () => {
