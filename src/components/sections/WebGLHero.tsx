@@ -1,4 +1,4 @@
-import { Suspense, useRef, useEffect } from 'react';
+import { Suspense, useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
@@ -10,6 +10,19 @@ import ScrollIndicator from '@/components/ScrollIndicator';
 import heroMountain from '@/assets/hero-mountain.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Check if WebGL is available
+const isWebGLAvailable = (): boolean => {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+    );
+  } catch (e) {
+    return false;
+  }
+};
 
 // Enhanced vertex shader
 const vertexShader = `
@@ -133,9 +146,48 @@ const DistortionMesh = () => {
   );
 };
 
+// CSS fallback for hero background when WebGL isn't available
+const HeroImageFallback = () => {
+  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      className="absolute inset-0"
+      style={{
+        backgroundImage: `url(${heroMountain})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'brightness(0.8)',
+      }}
+      animate={{
+        scale: 1 + mousePos.x * 0.05,
+        x: (mousePos.x - 0.5) * 20,
+        y: (mousePos.y - 0.5) * 20,
+      }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    />
+  );
+};
+
 const WebGLHero = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+
+  useEffect(() => {
+    setWebGLSupported(isWebGLAvailable());
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -173,17 +225,22 @@ const WebGLHero = () => {
       id="home"
       className="relative h-screen overflow-hidden"
     >
-      {/* WebGL Canvas Background */}
+      {/* WebGL Canvas Background or CSS Fallback */}
       <div className="absolute inset-0">
-        <Canvas
-          camera={{ position: [0, 0, 1], fov: 75 }}
-          gl={{ antialias: true, alpha: false }}
-          dpr={[1, 2]}
-        >
-          <Suspense fallback={null}>
-            <DistortionMesh />
-          </Suspense>
-        </Canvas>
+        {webGLSupported ? (
+          <Canvas
+            camera={{ position: [0, 0, 1], fov: 75 }}
+            gl={{ antialias: true, alpha: false }}
+            dpr={[1, 2]}
+            fallback={<HeroImageFallback />}
+          >
+            <Suspense fallback={null}>
+              <DistortionMesh />
+            </Suspense>
+          </Canvas>
+        ) : (
+          <HeroImageFallback />
+        )}
       </div>
 
       {/* Overlay gradient */}
