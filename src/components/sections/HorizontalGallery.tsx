@@ -13,38 +13,38 @@ gsap.registerPlugin(ScrollTrigger);
 const galleryItems = [
   {
     id: 1,
-    title: 'Alpine Majesty',
-    subtitle: 'Switzerland',
+    title: 'Crypto Price Prediction',
+    subtitle: 'Machine Learning',
     image: heroMountain,
-    description: 'Where peaks touch clouds',
+    description: 'ML-based Bitcoin price predictor',
   },
   {
     id: 2,
-    title: 'Nordic Fire',
-    subtitle: 'Iceland',
+    title: 'QuantumFusion',
+    subtitle: 'Web Development',
     image: icelandLandscape,
-    description: 'Land of ice and aurora',
+    description: 'AI/Cloud tech company website',
   },
   {
     id: 3,
-    title: 'Paradise Found',
-    subtitle: 'Maldives',
+    title: 'PrabhatVerse',
+    subtitle: 'Personal Portfolio',
     image: oceanIslands,
-    description: 'Crystal waters await',
+    description: 'Visionary personal universe',
   },
   {
     id: 4,
-    title: 'Misty Valleys',
-    subtitle: 'Black Forest',
+    title: 'ArticleHub',
+    subtitle: 'Full-Stack CMS',
     image: forestValley,
-    description: 'Ancient woods whisper',
+    description: 'Content management platform',
   },
   {
     id: 5,
-    title: 'Sky Canvas',
-    subtitle: 'Patagonia',
+    title: 'Flight Reservation',
+    subtitle: 'Spring Boot',
     image: skyClouds,
-    description: 'Endless horizons',
+    description: 'Airline booking system',
   },
 ];
 
@@ -143,10 +143,10 @@ const HorizontalGallery = () => {
         >
           <div>
             <span className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase block mb-2">
-              Featured Destinations
+              Featured Work
             </span>
             <h2 className="font-display text-3xl md:text-5xl text-primary-foreground tracking-wider">
-              G A L L E R Y
+              P O R T F O L I O
             </h2>
           </div>
           <div className="hidden md:flex items-center gap-4">
@@ -208,7 +208,7 @@ const HorizontalGallery = () => {
                 whileHover={{ x: 5 }}
               >
                 <span className="font-body text-xs tracking-wider text-primary-foreground uppercase">
-                  Explore
+                  View Project
                 </span>
                 <span className="text-primary-foreground">→</span>
               </motion.div>
@@ -231,7 +231,7 @@ const HorizontalGallery = () => {
             whileHover={{ scale: 1.05 }}
             data-cursor-hover
           >
-            <span>View All</span>
+            <span>Contact Me</span>
             <span>→</span>
           </motion.a>
         </div>

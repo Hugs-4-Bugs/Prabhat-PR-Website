@@ -35,15 +35,27 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
           className="fixed inset-0 z-[9999] bg-primary flex items-center justify-center"
         >
           <div className="text-center">
-            {/* Logo */}
-            <motion.h1
+            {/* Name Animation */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="font-display text-3xl md:text-5xl tracking-[0.5em] text-primary-foreground mb-12"
+              className="mb-4"
             >
-              M O N T F O R T
-            </motion.h1>
+              <h1 className="font-display text-3xl md:text-5xl tracking-[0.3em] text-primary-foreground">
+                PRABHAT
+              </h1>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-12"
+            >
+              <h1 className="font-display text-3xl md:text-5xl tracking-[0.5em] text-primary-foreground">
+                KUMAR
+              </h1>
+            </motion.div>
 
             {/* Progress Bar */}
             <div className="w-48 mx-auto">

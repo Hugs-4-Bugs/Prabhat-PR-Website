@@ -4,11 +4,13 @@ import ParallaxSection from '@/components/ParallaxSection';
 import forestValley from '@/assets/forest-valley.jpg';
 
 const stats = [
-  { number: '50+', label: 'Projects Completed' },
-  { number: '12', label: 'Years Experience' },
-  { number: '30+', label: 'Global Clients' },
-  { number: '15', label: 'Awards Won' },
+  { number: '2+', label: 'Years Experience' },
+  { number: '4+', label: 'Years Trading' },
+  { number: '1M+', label: 'Requests Handled' },
+  { number: '99.9%', label: 'System Uptime' },
 ];
+
+const interests = ['AI', 'Full Stack Development', 'Open Source', 'System Design', 'Trading', 'Innovation'];
 
 const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -32,7 +34,7 @@ const AboutSection = () => {
               transition={{ duration: 0.6 }}
               className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase mb-4 block"
             >
-              About Us
+              About Me
             </motion.span>
 
             <motion.h2
@@ -41,7 +43,7 @@ const AboutSection = () => {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="font-display text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-wider mb-8"
             >
-              Crafting Digital Excellence
+              Prabhat Kumar
             </motion.h2>
 
             <motion.p
@@ -50,26 +52,45 @@ const AboutSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="font-body text-primary-foreground/80 text-lg leading-relaxed mb-6"
             >
-              We are a collective of designers, developers, and dreamers dedicated to pushing 
-              the boundaries of digital creativity. Our work spans across brand identity, 
-              web experiences, and interactive installations.
+              Hi! I'm a passionate Java Software Developer driven by a vision to merge intelligence with innovation. 
+              I dive deep into AI, web technologies, and system design - crafting software that solves real-world problems.
             </motion.p>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-body text-primary-foreground/70 leading-relaxed mb-10"
+              className="font-body text-primary-foreground/70 leading-relaxed mb-6"
             >
-              Every project begins with a story, and we're here to help you tell yours 
-              in the most compelling way possible. From concept to execution, we blend 
-              strategy with artistry to create experiences that resonate.
+              With love for Java, Spring Boot, React, and Machine Learning, I thrive on crafting scalable, 
+              high-performance apps. I also have 4+ years of trading experience across Stocks, Crypto, 
+              Forex & Derivatives.
             </motion.p>
+
+            {/* Interests */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-wrap gap-2 mb-8"
+            >
+              {interests.map((interest, index) => (
+                <motion.span
+                  key={interest}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
+                  className="font-body text-xs px-3 py-1.5 bg-accent/20 text-primary-foreground/80 rounded-full"
+                >
+                  {interest}
+                </motion.span>
+              ))}
+            </motion.div>
 
             <motion.a
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
               href="#contact"
               className="btn-montfort text-primary-foreground border-primary-foreground/30"
               data-cursor-hover

@@ -202,25 +202,37 @@ const WebGLHero = () => {
         ref={contentRef}
         className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
       >
+        {/* Name split animation */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mb-2"
+        >
+          <h1 className="hero-title-large text-5xl md:text-7xl lg:text-9xl text-primary-foreground">
+            P R A B H A T
+          </h1>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-8"
         >
           <h1 className="hero-title-large text-5xl md:text-7xl lg:text-9xl text-primary-foreground">
-            M O N T F O R T
+            K U M A R
           </h1>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-12"
         >
           <p className="font-body text-sm md:text-base tracking-[0.3em] text-primary-foreground/80 uppercase">
-            Digital Experiences & Creative Design
+            Java Software Developer • AI & Web Enthusiast
           </p>
         </motion.div>
 
@@ -231,8 +243,8 @@ const WebGLHero = () => {
           className="max-w-2xl mx-auto mb-16"
         >
           <p className="font-display text-xl md:text-2xl text-primary-foreground/90 leading-relaxed">
-            We craft immersive digital journeys that blend artistry with technology,
-            creating experiences that captivate and inspire.
+            I blend the art of code with the science of AI to build innovative,
+            high-performance software solutions.
           </p>
         </motion.div>
 
@@ -240,19 +252,30 @@ const WebGLHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
+          className="flex flex-col sm:flex-row gap-4"
         >
           <a
-            href="#gallery"
+            href="#projects"
             className="btn-montfort text-primary-foreground border-primary-foreground/50 hover:border-primary-foreground"
             data-cursor-hover
           >
-            <span>Explore Work</span>
+            <span>View My Work</span>
             <motion.span
               animate={{ x: [0, 5, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >
               →
             </motion.span>
+          </a>
+          <a
+            href="https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-montfort text-primary-foreground border-primary-foreground/30"
+            data-cursor-hover
+          >
+            <span>Download CV</span>
+            <span>↓</span>
           </a>
         </motion.div>
       </div>

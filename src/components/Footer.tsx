@@ -8,16 +8,16 @@ const Footer = () => {
           {/* Logo */}
           <motion.a
             href="#home"
-            className="font-display text-lg tracking-[0.3em] text-primary-foreground uppercase"
+            className="font-display text-lg tracking-[0.2em] text-primary-foreground uppercase"
             whileHover={{ scale: 1.02 }}
             data-cursor-hover
           >
-            M o n t f o r t
+            Prabhat Kumar
           </motion.a>
 
           {/* Copyright */}
           <p className="font-body text-xs tracking-wider text-primary-foreground/50">
-            © 2026 Montfort. All rights reserved.
+            © 2026 Prabhat Kumar. All rights reserved.
           </p>
 
           {/* Back to Top */}
