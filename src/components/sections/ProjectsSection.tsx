@@ -12,25 +12,37 @@ const projects = [
     title: 'Cryptocurrency Price Prediction',
     category: 'Machine Learning',
     image: icelandLandscape,
-    description: 'ML-based app predicting Bitcoin prices using Python and Pandas',
+    description: 'ML-based app predicting Bitcoin prices using Python, Pandas, and advanced algorithms',
+    techStack: ['Python', 'Pandas', 'TensorFlow', 'Flask'],
+    link: 'https://github.com/prabhat-kumar',
+    github: 'https://github.com/prabhat-kumar',
   },
   {
     title: 'QuantumFusion Solutions',
     category: 'Web Development',
     image: oceanIslands,
-    description: 'Official website for an AI/Cloud tech company (Next.js, Tailwind)',
+    description: 'Official website for an AI/Cloud tech company with modern animations',
+    techStack: ['Next.js', 'Tailwind', 'TypeScript', 'Framer Motion'],
+    link: 'https://quantumfusion.io',
+    github: 'https://github.com/prabhat-kumar',
   },
   {
     title: 'PrabhatVerse',
     category: 'Personal Portfolio',
     image: forestValley,
-    description: 'Visionary personal universe/portfolio built with Next.js',
+    description: 'Visionary personal universe/portfolio with immersive 3D experiences',
+    techStack: ['Next.js', 'Three.js', 'GSAP', 'WebGL'],
+    link: 'https://prabhat-codes.vercel.app',
+    github: 'https://github.com/prabhat-kumar',
   },
   {
     title: 'ArticleHub Application',
     category: 'Full-Stack CMS',
     image: skyClouds,
-    description: 'Full-stack CMS platform built with Angular and Node.js',
+    description: 'Full-stack CMS platform with rich text editing and analytics',
+    techStack: ['Angular', 'Node.js', 'MongoDB', 'Express'],
+    link: 'https://github.com/prabhat-kumar',
+    github: 'https://github.com/prabhat-kumar',
   },
 ];
 
@@ -86,6 +98,10 @@ const ProjectsSection = () => {
               title={project.title}
               category={project.category}
               image={project.image}
+              description={project.description}
+              techStack={project.techStack}
+              link={project.link}
+              github={project.github}
               index={index}
             />
           ))}
