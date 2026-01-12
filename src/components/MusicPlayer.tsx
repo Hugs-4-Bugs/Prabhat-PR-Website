@@ -1,51 +1,75 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Music } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 
 const MusicPlayer = () => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false); // Start unmuted for auto-play
   const [isHovered, setIsHovered] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Calm ambient background music URL (royalty-free) - soft piano/ambient
   const musicUrl = 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3';
 
+  // Auto-play on first user interaction (required by browsers)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.15; // Softer volume
+    audio.volume = 0.1; // Very soft volume
     audio.loop = true;
 
-    // Handle user interaction to start audio
-    const handleFirstInteraction = () => {
-      if (!hasInteracted) {
-        setHasInteracted(true);
-        // Don't auto-play, wait for user to unmute
+    const tryAutoPlay = async () => {
+      try {
+        await audio.play();
+        setIsPlaying(true);
+      } catch (err) {
+        // Auto-play blocked, wait for user interaction
+        console.log('Auto-play blocked, waiting for user interaction');
       }
     };
 
-    window.addEventListener('click', handleFirstInteraction, { once: true });
-    
-    return () => {
-      window.removeEventListener('click', handleFirstInteraction);
+    // Try to auto-play immediately
+    tryAutoPlay();
+
+    // Also try on any user interaction
+    const handleInteraction = async () => {
+      if (!isPlaying && !isMuted) {
+        try {
+          await audio.play();
+          setIsPlaying(true);
+        } catch (err) {
+          console.log('Play failed:', err);
+        }
+      }
     };
-  }, [hasInteracted]);
+
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+    window.addEventListener('scroll', handleInteraction, { once: true });
+
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('scroll', handleInteraction);
+    };
+  }, [isPlaying, isMuted]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (!isMuted && hasInteracted) {
-      audio.play().catch(console.log);
-    } else {
+    if (isMuted) {
       audio.pause();
+      setIsPlaying(false);
+    } else if (!isPlaying) {
+      audio.play().then(() => setIsPlaying(true)).catch(console.log);
     }
-  }, [isMuted, hasInteracted]);
+  }, [isMuted, isPlaying]);
 
   const toggleMute = () => {
-    setHasInteracted(true);
     setIsMuted(!isMuted);
   };
 
@@ -68,7 +92,7 @@ const MusicPlayer = () => {
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 10 }}
-              className="font-body text-xs tracking-wider text-primary-foreground/80 bg-primary/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-primary-foreground/20"
+              className="font-body text-xs tracking-wider text-foreground bg-card/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-border"
             >
               {isMuted ? 'Play Music' : 'Mute'}
             </motion.span>
@@ -78,16 +102,16 @@ const MusicPlayer = () => {
         {/* Music button */}
         <motion.button
           onClick={toggleMute}
-          className="w-12 h-12 rounded-full bg-primary/80 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors duration-300 relative"
+          className="w-12 h-12 rounded-full bg-card/90 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors duration-300 relative"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           data-cursor-hover
           aria-label={isMuted ? 'Play music' : 'Mute music'}
         >
           {/* Sound waves animation when playing */}
-          {!isMuted && (
+          {!isMuted && isPlaying && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-primary-foreground/30"
+              className="absolute inset-0 rounded-full border-2 border-accent/30"
               animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
@@ -107,7 +131,7 @@ const MusicPlayer = () => {
         </motion.button>
 
         {/* Music visualizer bars */}
-        {!isMuted && (
+        {!isMuted && isPlaying && (
           <motion.div
             className="absolute -top-1 -right-1 flex gap-0.5"
             initial={{ opacity: 0 }}
