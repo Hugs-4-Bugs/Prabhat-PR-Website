@@ -134,7 +134,7 @@ const HorizontalGallery = () => {
       className="relative bg-primary overflow-hidden"
     >
       {/* Section Header */}
-      <div className="absolute top-0 left-0 right-0 z-20 py-8 px-6 lg:px-12">
+      <div className="absolute top-0 left-0 right-0 z-20 py-6 sm:py-8 px-4 sm:px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -142,11 +142,11 @@ const HorizontalGallery = () => {
           className="flex items-center justify-between"
         >
           <div>
-            <span className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase block mb-2">
+            <span className="font-body text-xs tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground/60 uppercase block mb-2">
               Featured Work
             </span>
-            <h2 className="font-display text-3xl md:text-5xl text-primary-foreground tracking-wider">
-              P O R T F O L I O
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em]">
+              PORTFOLIO
             </h2>
           </div>
           <div className="hidden md:flex items-center gap-4">

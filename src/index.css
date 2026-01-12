@@ -123,11 +123,17 @@
   
   .hero-title-large {
     font-family: var(--font-display);
-    letter-spacing: 0.5em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     font-weight: 300;
-    line-height: 0.9;
+    line-height: 1.1;
     text-shadow: 0 4px 40px hsl(205 52% 15% / 0.6);
+  }
+  
+  @media (max-width: 640px) {
+    .hero-title-large {
+      letter-spacing: 0.1em;
+    }
   }
   
   /* Liquid effect container */

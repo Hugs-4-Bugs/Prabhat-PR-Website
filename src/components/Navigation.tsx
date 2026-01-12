@@ -31,12 +31,12 @@ const Navigation = () => {
           isScrolled ? 'bg-primary/90 backdrop-blur-md' : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex items-center justify-between h-20 lg:h-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="flex items-center justify-between h-16 sm:h-20 lg:h-24">
             {/* Logo */}
             <motion.a
               href="#home"
-              className="font-display text-xl lg:text-2xl tracking-[0.2em] text-primary-foreground uppercase"
+              className="font-display text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-primary-foreground uppercase"
               whileHover={{ scale: 1.02 }}
               data-cursor-hover
             >
