@@ -1,13 +1,61 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from 'react';
+import { useLenis } from '@/hooks/useLenis';
+import Navigation from '@/components/Navigation';
+import LiquidCursor from '@/components/LiquidCursor';
+import LoadingScreen from '@/components/LoadingScreen';
+import HeroSection from '@/components/sections/HeroSection';
+import ProjectsSection from '@/components/sections/ProjectsSection';
+import AboutSection from '@/components/sections/AboutSection';
+import BlogSection from '@/components/sections/BlogSection';
+import ContactSection from '@/components/sections/ContactSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
+  
+  // Initialize Lenis smooth scroll
+  useLenis();
+
+  useEffect(() => {
+    // Prevent scroll during loading
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [isLoading]);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    setShowContent(true);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      {/* Loading Screen */}
+      <LoadingScreen onComplete={handleLoadingComplete} />
+
+      {/* Custom Cursor */}
+      <LiquidCursor />
+
+      {/* Main Content */}
+      {showContent && (
+        <div className="min-h-screen">
+          <Navigation />
+          
+          <main>
+            <HeroSection />
+            <ProjectsSection />
+            <AboutSection />
+            <BlogSection />
+            <ContactSection />
+          </main>
+
+          <Footer />
+        </div>
+      )}
+    </>
   );
 };
 
