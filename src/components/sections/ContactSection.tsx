@@ -3,6 +3,13 @@ import { useRef } from 'react';
 import ParallaxSection from '@/components/ParallaxSection';
 import oceanIslands from '@/assets/ocean-islands.jpg';
 
+const socialLinks = [
+  { name: 'GitHub', url: 'https://github.com/prabhat-kumar' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/prabhat-kumar' },
+  { name: 'Twitter', url: 'https://twitter.com/prabhat' },
+  { name: 'Portfolio', url: 'https://prabhat-codes.vercel.app' },
+];
+
 const ContactSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(contentRef, { once: true, margin: '-10%' });
@@ -32,7 +39,7 @@ const ContactSection = () => {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-display text-4xl md:text-6xl lg:text-7xl text-primary-foreground tracking-wider mb-8"
           >
-            Let's Create Together
+            Let's Connect
           </motion.h2>
 
           <motion.p
@@ -41,8 +48,8 @@ const ContactSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-body text-primary-foreground/80 text-lg mb-12 max-w-xl mx-auto"
           >
-            Have a project in mind? We'd love to hear about it. Let's discuss how 
-            we can bring your vision to life.
+            Have a project in mind or want to collaborate? I'd love to hear from you. 
+            Let's build something amazing together.
           </motion.p>
 
           {/* Contact Info */}
@@ -53,21 +60,31 @@ const ContactSection = () => {
             className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-12"
           >
             <a
-              href="mailto:hello@montfort.com"
-              className="font-display text-2xl md:text-3xl text-primary-foreground hover:text-accent transition-colors duration-300"
+              href="mailto:mailtoprabhat72@gmail.com"
+              className="font-display text-xl md:text-2xl text-primary-foreground hover:text-accent transition-colors duration-300"
               data-cursor-hover
             >
-              hello@montfort.com
+              mailtoprabhat72@gmail.com
             </a>
             <span className="hidden md:block text-primary-foreground/30">|</span>
             <a
-              href="tel:+41123456789"
-              className="font-display text-2xl md:text-3xl text-primary-foreground hover:text-accent transition-colors duration-300"
+              href="tel:+917250063206"
+              className="font-display text-xl md:text-2xl text-primary-foreground hover:text-accent transition-colors duration-300"
               data-cursor-hover
             >
-              +41 123 456 789
+              +91 7250063206
             </a>
           </motion.div>
+
+          {/* Location */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.35 }}
+            className="font-body text-sm text-primary-foreground/60 mb-8"
+          >
+            📍 Bengaluru, India
+          </motion.p>
 
           {/* Social Links */}
           <motion.div
@@ -76,16 +93,37 @@ const ContactSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex items-center justify-center gap-8"
           >
-            {['Instagram', 'Dribbble', 'LinkedIn', 'Twitter'].map((social) => (
+            {socialLinks.map((social) => (
               <a
-                key={social}
-                href="#"
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="nav-link text-primary-foreground/70 hover:text-primary-foreground"
                 data-cursor-hover
               >
-                {social}
+                {social.name}
               </a>
             ))}
+          </motion.div>
+
+          {/* CTA Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-12"
+          >
+            <a
+              href="https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-montfort text-primary-foreground border-primary-foreground/50"
+              data-cursor-hover
+            >
+              <span>Download Resume</span>
+              <span>↓</span>
+            </a>
           </motion.div>
         </div>
       </div>

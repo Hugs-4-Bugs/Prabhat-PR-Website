@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useLenis } from '@/hooks/useLenis';
 import Navigation from '@/components/Navigation';
-import LiquidCursor from '@/components/LiquidCursor';
+import MouseTrail from '@/components/MouseTrail';
+import ParticlesBackground from '@/components/ParticlesBackground';
 import LoadingScreen from '@/components/LoadingScreen';
 import WebGLHero from '@/components/sections/WebGLHero';
 import HorizontalGallery from '@/components/sections/HorizontalGallery';
 import ProjectsSection from '@/components/sections/ProjectsSection';
+import SkillsSection from '@/components/sections/SkillsSection';
+import ExperienceSection from '@/components/sections/ExperienceSection';
 import AboutSection from '@/components/sections/AboutSection';
-import BlogSection from '@/components/sections/BlogSection';
 import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/Footer';
 
@@ -37,12 +39,15 @@ const Index = () => {
       {/* Loading Screen */}
       <LoadingScreen onComplete={handleLoadingComplete} />
 
-      {/* Custom Cursor */}
-      <LiquidCursor />
+      {/* 3D Particles Background */}
+      {showContent && <ParticlesBackground />}
+
+      {/* Custom Mouse Trail */}
+      <MouseTrail />
 
       {/* Main Content */}
       {showContent && (
-        <div className="min-h-screen">
+        <div className="min-h-screen relative z-10">
           <Navigation />
           
           <main>
@@ -52,10 +57,19 @@ const Index = () => {
             {/* Horizontal scrolling gallery */}
             <HorizontalGallery />
             
-            {/* Other sections */}
+            {/* Projects */}
             <ProjectsSection />
+            
+            {/* Skills & Services */}
+            <SkillsSection />
+            
+            {/* Experience Timeline */}
+            <ExperienceSection />
+            
+            {/* About */}
             <AboutSection />
-            <BlogSection />
+            
+            {/* Contact */}
             <ContactSection />
           </main>
 

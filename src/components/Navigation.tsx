@@ -14,8 +14,9 @@ const Navigation = () => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Experience', href: '#experience' },
     { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -34,11 +35,11 @@ const Navigation = () => {
             {/* Logo */}
             <motion.a
               href="#home"
-              className="font-display text-xl lg:text-2xl tracking-[0.3em] text-primary-foreground uppercase"
+              className="font-display text-xl lg:text-2xl tracking-[0.2em] text-primary-foreground uppercase"
               whileHover={{ scale: 1.02 }}
               data-cursor-hover
             >
-              M o n t f o r t
+              Prabhat Kumar
             </motion.a>
 
             {/* Desktop Navigation */}
