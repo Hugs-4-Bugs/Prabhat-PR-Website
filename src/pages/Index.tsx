@@ -2,18 +2,19 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useLenis } from '@/hooks/useLenis';
 import Navigation from '@/components/Navigation';
-import MouseTrail from '@/components/MouseTrail';
+import LiquidCursor from '@/components/LiquidCursor';
 import ParticlesBackground from '@/components/ParticlesBackground';
+import AnimatedBackground from '@/components/AnimatedBackground';
+import AccessibleFocus from '@/components/AccessibleFocus';
 import LoadingScreen from '@/components/LoadingScreen';
 import ThemeToggle from '@/components/ThemeToggle';
 import MusicPlayer from '@/components/MusicPlayer';
 import PageTransition from '@/components/PageTransition';
 import WebGLHero from '@/components/sections/WebGLHero';
-import HorizontalGallery from '@/components/sections/HorizontalGallery';
+import AboutSection from '@/components/sections/AboutSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
-import AboutSection from '@/components/sections/AboutSection';
 import BlogSection from '@/components/sections/BlogSection';
 import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/Footer';
@@ -55,11 +56,17 @@ const Index = () => {
       {/* Loading Screen */}
       <LoadingScreen onComplete={handleLoadingComplete} />
 
+      {/* Animated Background - moves when not scrolling */}
+      {showContent && <AnimatedBackground />}
+
       {/* 3D Particles Background */}
       {showContent && <ParticlesBackground />}
 
-      {/* Custom Mouse Trail */}
-      <MouseTrail />
+      {/* Liquid Cursor - visible on all pages */}
+      <LiquidCursor />
+
+      {/* Accessibility Focus Handler */}
+      <AccessibleFocus />
 
       {/* Main Content */}
       <AnimatePresence mode="wait">
@@ -78,8 +85,8 @@ const Index = () => {
                 {/* WebGL Hero with liquid distortion */}
                 <WebGLHero />
                 
-                {/* Horizontal scrolling gallery */}
-                <HorizontalGallery />
+                {/* About - comes right after hero */}
+                <AboutSection />
                 
                 {/* Projects */}
                 <ProjectsSection />
@@ -89,9 +96,6 @@ const Index = () => {
                 
                 {/* Experience Timeline */}
                 <ExperienceSection />
-                
-                {/* About */}
-                <AboutSection />
                 
                 {/* Blog */}
                 <BlogSection />

@@ -36,7 +36,7 @@ const ProjectCard = ({
       data-cursor-hover
     >
       {/* Premium Card Container */}
-      <div className="relative overflow-hidden aspect-[3/4] rounded-lg bg-gradient-to-b from-card/50 to-card/80 border border-primary-foreground/10 group-hover:border-primary-foreground/30 transition-all duration-500">
+      <div className="relative overflow-hidden aspect-[4/3] sm:aspect-[3/2] rounded-lg bg-gradient-to-b from-card/50 to-card/80 border border-primary-foreground/10 group-hover:border-primary-foreground/30 transition-all duration-500 shadow-lg hover:shadow-xl">
         {/* Image */}
         <motion.div
           className="absolute inset-0 bg-cover bg-center"

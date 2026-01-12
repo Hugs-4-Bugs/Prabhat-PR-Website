@@ -14,8 +14,8 @@ const projects = [
     image: icelandLandscape,
     description: 'ML-based app predicting Bitcoin prices using Python, Pandas, and advanced algorithms',
     techStack: ['Python', 'Pandas', 'TensorFlow', 'Flask'],
-    link: 'https://github.com/prabhat-kumar',
-    github: 'https://github.com/prabhat-kumar',
+    link: 'https://github.com/Hugs-4-Bugs',
+    github: 'https://github.com/Hugs-4-Bugs',
   },
   {
     title: 'QuantumFusion Solutions',
@@ -24,7 +24,7 @@ const projects = [
     description: 'Official website for an AI/Cloud tech company with modern animations',
     techStack: ['Next.js', 'Tailwind', 'TypeScript', 'Framer Motion'],
     link: 'https://quantumfusion.io',
-    github: 'https://github.com/prabhat-kumar',
+    github: 'https://github.com/Hugs-4-Bugs',
   },
   {
     title: 'PrabhatVerse',
@@ -32,8 +32,8 @@ const projects = [
     image: forestValley,
     description: 'Visionary personal universe/portfolio with immersive 3D experiences',
     techStack: ['Next.js', 'Three.js', 'GSAP', 'WebGL'],
-    link: 'https://prabhat-codes.vercel.app',
-    github: 'https://github.com/prabhat-kumar',
+    link: 'https://prabhat-codes.vercel.app/',
+    github: 'https://github.com/Hugs-4-Bugs',
   },
   {
     title: 'ArticleHub Application',
@@ -41,8 +41,8 @@ const projects = [
     image: skyClouds,
     description: 'Full-stack CMS platform with rich text editing and analytics',
     techStack: ['Angular', 'Node.js', 'MongoDB', 'Express'],
-    link: 'https://github.com/prabhat-kumar',
-    github: 'https://github.com/prabhat-kumar',
+    link: 'https://github.com/Hugs-4-Bugs',
+    github: 'https://github.com/Hugs-4-Bugs',
   },
 ];
 
@@ -116,7 +116,7 @@ const ProjectsSection = () => {
           className="text-center mt-16"
         >
           <a
-            href="https://github.com/prabhat-kumar"
+            href="https://github.com/Hugs-4-Bugs"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-montfort text-primary-foreground border-primary-foreground/30"

@@ -8,14 +8,14 @@ const MusicPlayer = () => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Ambient background music URL (royalty-free)
-  const musicUrl = 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3';
+  // Calm ambient background music URL (royalty-free) - soft piano/ambient
+  const musicUrl = 'https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3';
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.3;
+    audio.volume = 0.15; // Softer volume
     audio.loop = true;
 
     // Handle user interaction to start audio

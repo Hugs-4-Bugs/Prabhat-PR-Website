@@ -407,3 +407,57 @@
     backface-visibility: hidden;
   }
 }
+
+/* Accessibility - Keyboard focus styles */
+body.keyboard-navigation *:focus {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
+
+body:not(.keyboard-navigation) *:focus {
+  outline: none;
+}
+
+/* Skip to main content link */
+.skip-to-main {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 0.75rem 1.5rem;
+  z-index: 10000;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  transition: top 0.3s ease;
+}
+
+.skip-to-main:focus {
+  top: 1rem;
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
