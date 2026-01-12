@@ -10,13 +10,11 @@ import LoadingScreen from '@/components/LoadingScreen';
 import ThemeToggle from '@/components/ThemeToggle';
 import MusicPlayer from '@/components/MusicPlayer';
 import PageTransition from '@/components/PageTransition';
-import ResumeModal from '@/components/ResumeModal';
 import WebGLHero from '@/components/sections/WebGLHero';
 import AboutSection from '@/components/sections/AboutSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import BlogSection from '@/components/sections/BlogSection';
 import ContactSection from '@/components/sections/ContactSection';
 import Footer from '@/components/Footer';
@@ -24,11 +22,12 @@ import Footer from '@/components/Footer';
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
-  const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
   
+  // Initialize Lenis smooth scroll
   useLenis();
 
   useEffect(() => {
+    // Prevent scroll during loading
     if (isLoading) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -36,6 +35,7 @@ const Index = () => {
     }
   }, [isLoading]);
 
+  // Initialize dark mode by default
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
@@ -53,29 +53,54 @@ const Index = () => {
 
   return (
     <>
+      {/* Loading Screen */}
       <LoadingScreen onComplete={handleLoadingComplete} />
-      {showContent && <AnimatedBackground />}
-      {showContent && <ParticlesBackground />}
-      <LiquidCursor />
-      <AccessibleFocus />
-      <ResumeModal isOpen={isResumeModalOpen} onClose={() => setIsResumeModalOpen(false)} />
 
+      {/* Animated Background - moves when not scrolling */}
+      {showContent && <AnimatedBackground />}
+
+      {/* 3D Particles Background */}
+      {showContent && <ParticlesBackground />}
+
+      {/* Liquid Cursor - visible on all pages */}
+      <LiquidCursor />
+
+      {/* Accessibility Focus Handler */}
+      <AccessibleFocus />
+
+      {/* Main Content */}
       <AnimatePresence mode="wait">
         {showContent && (
           <PageTransition>
             <div className="min-h-screen relative z-10">
               <Navigation />
+              
+              {/* Theme Toggle */}
               <ThemeToggle />
+              
+              {/* Music Player */}
               <MusicPlayer />
               
               <main>
+                {/* WebGL Hero with liquid distortion */}
                 <WebGLHero />
+                
+                {/* About - comes right after hero */}
                 <AboutSection />
+                
+                {/* Projects */}
                 <ProjectsSection />
+                
+                {/* Skills & Services */}
                 <SkillsSection />
+                
+                {/* Experience Timeline */}
                 <ExperienceSection />
-                <TestimonialsSection />
+                
+                {/* Blog */}
                 <BlogSection />
+                
+                {/* Contact */}
                 <ContactSection />
               </main>
 
