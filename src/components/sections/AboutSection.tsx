@@ -24,15 +24,15 @@ const AboutSection = () => {
       backgroundSpeed={0.2}
       zoomEffect={false}
     >
-      <div className="container mx-auto px-6 py-20">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
           {/* Left Column - Text Content */}
           <div ref={contentRef}>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase mb-4 block"
+              className="font-body text-xs tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground/60 uppercase mb-4 block"
             >
               About Me
             </motion.span>
@@ -41,7 +41,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-display text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-wider mb-8"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em] mb-6 sm:mb-8"
             >
               Prabhat Kumar
             </motion.h2>
@@ -50,7 +50,7 @@ const AboutSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-body text-primary-foreground/80 text-lg leading-relaxed mb-6"
+              className="font-body text-primary-foreground/80 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6"
             >
               Hi! I'm a passionate Java Software Developer driven by a vision to merge intelligence with innovation. 
               I dive deep into AI, web technologies, and system design - crafting software that solves real-world problems.
@@ -101,7 +101,7 @@ const AboutSection = () => {
           </div>
 
           {/* Right Column - Stats */}
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -110,10 +110,10 @@ const AboutSection = () => {
                 transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
                 className="text-center lg:text-left"
               >
-                <div className="font-display text-5xl md:text-6xl text-primary-foreground mb-2">
+                <div className="font-display text-4xl sm:text-5xl md:text-6xl text-primary-foreground mb-2">
                   {stat.number}
                 </div>
-                <div className="font-body text-sm tracking-wider text-primary-foreground/60 uppercase">
+                <div className="font-body text-xs sm:text-sm tracking-wider text-primary-foreground/60 uppercase">
                   {stat.label}
                 </div>
               </motion.div>

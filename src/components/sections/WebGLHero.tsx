@@ -257,17 +257,17 @@ const WebGLHero = () => {
       {/* Content */}
       <div
         ref={contentRef}
-        className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
+        className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
       >
-        {/* Name split animation */}
+        {/* Name - responsive sizing */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-2"
+          className="mb-2 sm:mb-4"
         >
-          <h1 className="hero-title-large text-5xl md:text-7xl lg:text-9xl text-primary-foreground">
-            P R A B H A T
+          <h1 className="font-display font-light text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            PRABHAT
           </h1>
         </motion.div>
 
@@ -275,10 +275,10 @@ const WebGLHero = () => {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
-          <h1 className="hero-title-large text-5xl md:text-7xl lg:text-9xl text-primary-foreground">
-            K U M A R
+          <h1 className="font-display font-light text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em] md:tracking-[0.2em] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            KUMAR
           </h1>
         </motion.div>
 
@@ -286,9 +286,9 @@ const WebGLHero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
-          <p className="font-body text-sm md:text-base tracking-[0.3em] text-primary-foreground/80 uppercase">
+          <p className="font-body text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.15em] text-primary-foreground/80 uppercase">
             Java Software Developer • AI & Web Enthusiast
           </p>
         </motion.div>
@@ -297,9 +297,9 @@ const WebGLHero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.9 }}
-          className="max-w-2xl mx-auto mb-16"
+          className="max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto mb-10 sm:mb-16 px-2"
         >
-          <p className="font-display text-xl md:text-2xl text-primary-foreground/90 leading-relaxed">
+          <p className="font-display text-base sm:text-lg md:text-xl lg:text-2xl text-primary-foreground/90 leading-relaxed">
             I blend the art of code with the science of AI to build innovative,
             high-performance software solutions.
           </p>
@@ -309,11 +309,11 @@ const WebGLHero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-col sm:flex-row gap-4"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0"
         >
           <a
             href="#projects"
-            className="btn-montfort text-primary-foreground border-primary-foreground/50 hover:border-primary-foreground"
+            className="btn-montfort text-primary-foreground border-primary-foreground/50 hover:border-primary-foreground text-center justify-center"
             data-cursor-hover
           >
             <span>View My Work</span>
@@ -328,7 +328,7 @@ const WebGLHero = () => {
             href="https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-montfort text-primary-foreground border-primary-foreground/30"
+            className="btn-montfort text-primary-foreground border-primary-foreground/30 text-center justify-center"
             data-cursor-hover
           >
             <span>Download CV</span>

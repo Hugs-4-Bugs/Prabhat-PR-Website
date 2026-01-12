@@ -58,14 +58,14 @@ const ProjectsSection = () => {
       backgroundSpeed={0.25}
       zoomEffect={true}
     >
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center mb-20">
+        <div ref={titleRef} className="text-center mb-12 sm:mb-20">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase mb-4 block"
+            className="font-body text-xs tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground/60 uppercase mb-4 block"
           >
             Featured Work
           </motion.span>
@@ -74,16 +74,16 @@ const ProjectsSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl text-primary-foreground tracking-wider"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em]"
           >
-            P R O J E C T S
+            PROJECTS
           </motion.h2>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-body text-primary-foreground/70 max-w-xl mx-auto mt-6"
+            className="font-body text-primary-foreground/70 max-w-xl mx-auto mt-4 sm:mt-6 text-sm sm:text-base px-2"
           >
             Each project represents a unique journey into the intersection of creativity and technology,
             crafted with precision and passion.

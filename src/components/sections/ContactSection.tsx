@@ -22,13 +22,13 @@ const ContactSection = () => {
       backgroundSpeed={0.2}
       zoomEffect={false}
     >
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20">
         <div ref={contentRef} className="max-w-3xl mx-auto text-center">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase mb-4 block"
+            className="font-body text-xs tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground/60 uppercase mb-4 block"
           >
             Get in Touch
           </motion.span>
@@ -37,7 +37,7 @@ const ContactSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl text-primary-foreground tracking-wider mb-8"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em] mb-6 sm:mb-8"
           >
             Let's Connect
           </motion.h2>
@@ -46,7 +46,7 @@ const ContactSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-body text-primary-foreground/80 text-lg mb-12 max-w-xl mx-auto"
+            className="font-body text-primary-foreground/80 text-base sm:text-lg mb-8 sm:mb-12 max-w-xl mx-auto px-2"
           >
             Have a project in mind or want to collaborate? I'd love to hear from you. 
             Let's build something amazing together.
@@ -57,19 +57,18 @@ const ContactSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 mb-12"
+            className="flex flex-col items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12"
           >
             <a
               href="mailto:mailtoprabhat72@gmail.com"
-              className="font-display text-xl md:text-2xl text-primary-foreground hover:text-accent transition-colors duration-300"
+              className="font-display text-base sm:text-lg md:text-xl text-primary-foreground hover:text-accent transition-colors duration-300 break-all sm:break-normal"
               data-cursor-hover
             >
               mailtoprabhat72@gmail.com
             </a>
-            <span className="hidden md:block text-primary-foreground/30">|</span>
             <a
               href="tel:+917250063206"
-              className="font-display text-xl md:text-2xl text-primary-foreground hover:text-accent transition-colors duration-300"
+              className="font-display text-base sm:text-lg md:text-xl text-primary-foreground hover:text-accent transition-colors duration-300"
               data-cursor-hover
             >
               +91 7250063206

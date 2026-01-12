@@ -124,14 +124,14 @@ const BlogSection = () => {
       backgroundSpeed={0.3}
       zoomEffect={true}
     >
-      <div className="container mx-auto px-6 py-20">
+      <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Section Header */}
-        <div ref={titleRef} className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-12 sm:mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="font-body text-xs tracking-[0.3em] text-primary-foreground/60 uppercase mb-4 block"
+            className="font-body text-xs tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground/60 uppercase mb-4 block"
           >
             Latest Insights
           </motion.span>
@@ -140,14 +140,14 @@ const BlogSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-4xl md:text-6xl text-primary-foreground tracking-wider"
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary-foreground tracking-[0.1em] sm:tracking-[0.15em]"
           >
-            B L O G
+            BLOG
           </motion.h2>
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {blogPosts.map((post, index) => (
             <BlogCard key={post.title} post={post} index={index} />
           ))}
