@@ -3,39 +3,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX } from 'lucide-react';
 
 const MusicPlayer = () => {
-  const [isMuted, setIsMuted] = useState(false); // Start unmuted for auto-play
-  const [isHovered, setIsHovered] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const isMutedRef = useRef(false);
 
-  // Sweet slow ambient background music (royalty-free, long track)
   // Change the filename below to switch music (place your .mp3 file in the public/ folder)
   const musicUrl = '/background-music.mp3';
 
-  // Auto-play on first user interaction (required by browsers)
+  // Sync ref with state so event listeners always see latest value
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  // Setup audio and auto-play on first user interaction
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.1; // Very soft volume
+    audio.volume = 0.1;
     audio.loop = true;
 
-    const tryAutoPlay = async () => {
-      try {
-        await audio.play();
-        setIsPlaying(true);
-      } catch (err) {
-        // Auto-play blocked, wait for user interaction
-        console.log('Auto-play blocked, waiting for user interaction');
-      }
-    };
-
-    // Try to auto-play immediately
-    tryAutoPlay();
-
-    // Also try on any user interaction
     const handleInteraction = async () => {
-      if (!isPlaying && !isMuted) {
+      // Don't play if user has muted
+      if (isMutedRef.current) return;
+      if (audio.paused) {
         try {
           await audio.play();
           setIsPlaying(true);
@@ -45,19 +38,21 @@ const MusicPlayer = () => {
       }
     };
 
+    // Try auto-play
+    handleInteraction();
+
     window.addEventListener('click', handleInteraction);
     window.addEventListener('keydown', handleInteraction);
     window.addEventListener('touchstart', handleInteraction);
-    window.addEventListener('scroll', handleInteraction, { once: true });
 
     return () => {
       window.removeEventListener('click', handleInteraction);
       window.removeEventListener('keydown', handleInteraction);
       window.removeEventListener('touchstart', handleInteraction);
-      window.removeEventListener('scroll', handleInteraction);
     };
-  }, [isPlaying, isMuted]);
+  }, []); // Run once only
 
+  // Handle mute/unmute
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -65,13 +60,14 @@ const MusicPlayer = () => {
     if (isMuted) {
       audio.pause();
       setIsPlaying(false);
-    } else if (!isPlaying) {
-      audio.play().then(() => setIsPlaying(true)).catch(console.log);
+    } else {
+      audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
-  }, [isMuted, isPlaying]);
+  }, [isMuted]);
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent window click listener from re-playing
+    setIsMuted(prev => !prev);
   };
 
   return (
