@@ -7,7 +7,12 @@ import { useState, useEffect } from 'react';
 const isWebGLAvailable = (): boolean => {
   try {
     const canvas = document.createElement('canvas');
-    return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return false;
+    const shader = (gl as WebGLRenderingContext).createShader((gl as WebGLRenderingContext).VERTEX_SHADER);
+    if (!shader) return false;
+    (gl as WebGLRenderingContext).deleteShader(shader);
+    return true;
   } catch { return false; }
 };
 
