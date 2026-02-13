@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX } from 'lucide-react';
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
 
 const MusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
@@ -9,7 +9,7 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Change the filename below to switch music (place your .mp3 file in the public/ folder)
-  const musicUrl = '/background-music.mp3';
+  const musicUrl = "/background-music.mp";
 
   // Auto-play after 3 seconds
   useEffect(() => {
@@ -21,21 +21,23 @@ const MusicPlayer = () => {
       audio.loop = true;
 
       const tryPlay = () => {
-        audio.play()
+        audio
+          .play()
           .then(() => setIsPlaying(true))
           .catch(() => {
             // Auto-play blocked, try on first interaction
             const playOnce = () => {
               if (audio.paused) {
-                audio.play()
+                audio
+                  .play()
                   .then(() => setIsPlaying(true))
                   .catch(() => {});
               }
-              document.removeEventListener('click', playOnce);
-              document.removeEventListener('keydown', playOnce);
+              document.removeEventListener("click", playOnce);
+              document.removeEventListener("keydown", playOnce);
             };
-            document.addEventListener('click', playOnce, { once: true });
-            document.addEventListener('keydown', playOnce, { once: true });
+            document.addEventListener("click", playOnce, { once: true });
+            document.addEventListener("keydown", playOnce, { once: true });
           });
       };
 
@@ -52,7 +54,8 @@ const MusicPlayer = () => {
 
     // Check actual DOM state, not React state
     if (audio.paused) {
-      audio.play()
+      audio
+        .play()
         .then(() => {
           setIsPlaying(true);
           setIsMuted(false);
@@ -85,7 +88,7 @@ const MusicPlayer = () => {
               exit={{ opacity: 0, x: 10 }}
               className="font-body text-xs tracking-wider text-foreground bg-card/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-border"
             >
-              {isMuted ? 'Play Music' : 'Mute'}
+              {isMuted ? "Play Music" : "Mute"}
             </motion.span>
           )}
         </AnimatePresence>
@@ -95,7 +98,7 @@ const MusicPlayer = () => {
             onClick={handleToggle}
             className="w-12 h-12 rounded-full bg-card/90 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors duration-300 relative"
             data-cursor-hover
-            aria-label={isMuted ? 'Play music' : 'Mute music'}
+            aria-label={isMuted ? "Play music" : "Mute music"}
           >
             {!isMuted && isPlaying && (
               <motion.div
@@ -110,11 +113,7 @@ const MusicPlayer = () => {
               animate={{ scale: isMuted ? 1 : [1, 1.1, 1] }}
               transition={{ duration: 0.5, repeat: isMuted ? 0 : Infinity }}
             >
-              {isMuted ? (
-                <VolumeX className="w-5 h-5" />
-              ) : (
-                <Volume2 className="w-5 h-5" />
-              )}
+              {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
             </motion.div>
           </button>
         </motion.div>
@@ -129,7 +128,7 @@ const MusicPlayer = () => {
               <motion.div
                 key={i}
                 className="w-0.5 bg-accent rounded-full"
-                animate={{ height: ['4px', '8px', '4px'] }}
+                animate={{ height: ["4px", "8px", "4px"] }}
                 transition={{
                   duration: 0.5,
                   repeat: Infinity,
