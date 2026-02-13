@@ -7,7 +7,7 @@ interface ResumeModalProps {
   onClose: () => void;
 }
 
-const resumeUrl = 'https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf';
+const resumeUrl = '/resume/resume.pdf';
 
 const ResumeModal = ({ isOpen, onClose }: ResumeModalProps) => {
   const [isLoading, setIsLoading] = useState(true);
