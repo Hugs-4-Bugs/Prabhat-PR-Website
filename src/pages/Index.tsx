@@ -11,7 +11,7 @@ import ThemeToggle from '@/components/ThemeToggle';
 import MusicPlayer from '@/components/MusicPlayer';
 import PageTransition from '@/components/PageTransition';
 import ResumeModal from '@/components/ResumeModal';
-import CinematicHero from '@/components/sections/CinematicHero';
+import WebGLHero from '@/components/sections/WebGLHero';
 import AboutSection from '@/components/sections/AboutSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
@@ -70,7 +70,7 @@ const Index = () => {
               <MusicPlayer />
               
               <main>
-                <CinematicHero />
+                <WebGLHero />
                 <AboutSection />
                 <ProjectsSection />
                 <SkillsSection />
