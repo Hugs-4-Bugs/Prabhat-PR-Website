@@ -8,8 +8,8 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Mortals by Warriyo (feat. Laura Brehm) - NCS Release
-  const musicUrl = 'https://ncs.io/track/download/e7908fd4-1b4a-4207-bbe8-836baff9e54c';
+  // Sweet slow ambient background music (royalty-free, long track)
+  const musicUrl = 'https://cdn.pixabay.com/download/audio/2024/11/29/audio_d4e27ef7f3.mp3';
 
   // Auto-play on first user interaction (required by browsers)
   useEffect(() => {
