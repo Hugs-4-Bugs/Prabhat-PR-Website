@@ -6,50 +6,49 @@
 
 @layer base {
   :root {
-    /* Nature / Earth light palette */
-    --background: 42 33% 95%;
-    --foreground: 150 40% 18%;
+    /* Mont-Fort inspired palette */
+    --background: 210 25% 97%;
+    --foreground: 205 52% 36%;
     
-    --card: 42 28% 96%;
-    --card-foreground: 150 40% 18%;
+    --card: 210 25% 97%;
+    --card-foreground: 205 52% 36%;
     
-    --popover: 42 28% 96%;
-    --popover-foreground: 150 40% 18%;
+    --popover: 210 25% 97%;
+    --popover-foreground: 205 52% 36%;
     
-    /* Forest green primary */
-    --primary: 152 45% 30%;
-    --primary-foreground: 42 33% 95%;
+    /* Deep blue primary */
+    --primary: 205 52% 36%;
+    --primary-foreground: 210 25% 97%;
     
-    /* Warm cream secondary */
-    --secondary: 42 22% 90%;
-    --secondary-foreground: 150 40% 18%;
+    /* Soft cream secondary */
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 205 52% 36%;
     
-    --muted: 42 18% 88%;
-    --muted-foreground: 150 20% 40%;
+    --muted: 210 15% 90%;
+    --muted-foreground: 205 30% 50%;
     
-    /* Golden amber accent */
-    --accent: 36 85% 52%;
-    --accent-foreground: 42 33% 10%;
+    --accent: 205 60% 45%;
+    --accent-foreground: 210 25% 97%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 150 15% 82%;
-    --input: 150 15% 82%;
-    --ring: 152 45% 30%;
+    --border: 205 20% 85%;
+    --input: 205 20% 85%;
+    --ring: 205 52% 36%;
     
     --radius: 0rem;
     
-    /* Custom tokens - Nature */
+    /* Custom tokens */
     --hero-gradient: linear-gradient(180deg, 
-      hsl(150 40% 12% / 0.35) 0%, 
-      hsl(152 45% 25% / 0.5) 50%, 
-      hsl(150 40% 12% / 0.75) 100%);
+      hsl(205 52% 20% / 0.4) 0%, 
+      hsl(205 52% 36% / 0.6) 50%, 
+      hsl(205 52% 20% / 0.8) 100%);
     --text-gradient: linear-gradient(135deg, 
-      hsl(42 33% 95%) 0%, 
-      hsl(150 15% 82%) 100%);
-    --overlay-dark: hsl(150 40% 10% / 0.7);
-    --overlay-light: hsl(42 33% 95% / 0.1);
+      hsl(210 25% 97%) 0%, 
+      hsl(205 20% 85%) 100%);
+    --overlay-dark: hsl(205 52% 15% / 0.7);
+    --overlay-light: hsl(210 25% 97% / 0.1);
     
     /* Fonts */
     --font-display: 'Cormorant Garamond', serif;
@@ -61,47 +60,30 @@
   }
 
   .dark {
-    /* Space / Universe dark palette */
-    --background: 240 25% 4%;
-    --foreground: 220 25% 92%;
+    --background: 220 20% 10%;
+    --foreground: 210 30% 95%;
     
-    --card: 240 22% 7%;
-    --card-foreground: 220 25% 92%;
+    --card: 220 20% 14%;
+    --card-foreground: 210 30% 95%;
     
-    --popover: 240 22% 7%;
-    --popover-foreground: 220 25% 92%;
+    --popover: 220 20% 14%;
+    --popover-foreground: 210 30% 95%;
     
-    /* Cosmic purple primary */
-    --primary: 265 60% 50%;
-    --primary-foreground: 220 25% 95%;
+    --primary: 220 20% 14%;
+    --primary-foreground: 210 30% 95%;
     
-    --secondary: 240 18% 12%;
-    --secondary-foreground: 220 25% 92%;
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 210 30% 95%;
     
-    --muted: 240 15% 14%;
-    --muted-foreground: 220 15% 55%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 20% 70%;
     
-    /* Nebula red accent */
-    --accent: 345 75% 45%;
-    --accent-foreground: 220 25% 95%;
+    --accent: 200 70% 55%;
+    --accent-foreground: 220 20% 10%;
     
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    
-    --border: 240 18% 18%;
-    --input: 240 18% 18%;
-    --ring: 265 60% 50%;
-    
-    /* Custom tokens - Space */
-    --hero-gradient: linear-gradient(180deg, 
-      hsl(260 40% 6% / 0.5) 0%, 
-      hsl(265 60% 18% / 0.65) 50%, 
-      hsl(240 25% 4% / 0.9) 100%);
-    --text-gradient: linear-gradient(135deg, 
-      hsl(220 25% 92%) 0%, 
-      hsl(265 40% 70%) 100%);
-    --overlay-dark: hsl(240 25% 4% / 0.8);
-    --overlay-light: hsl(265 60% 50% / 0.05);
+    --border: 220 15% 25%;
+    --input: 220 15% 25%;
+    --ring: 210 30% 95%;
   }
 }
 
@@ -136,7 +118,7 @@
     letter-spacing: 0.3em;
     text-transform: uppercase;
     font-weight: 300;
-    text-shadow: 0 4px 30px hsl(var(--background) / 0.5);
+    text-shadow: 0 4px 30px hsl(205 52% 15% / 0.5);
   }
   
   .hero-title-large {
@@ -145,7 +127,7 @@
     text-transform: uppercase;
     font-weight: 300;
     line-height: 1.1;
-    text-shadow: 0 4px 40px hsl(var(--background) / 0.6);
+    text-shadow: 0 4px 40px hsl(205 52% 15% / 0.6);
   }
   
   @media (max-width: 640px) {
@@ -166,7 +148,7 @@
     inset: 0;
     background: radial-gradient(
       circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      hsl(var(--accent) / 0.15) 0%,
+      hsl(205 60% 45% / 0.15) 0%,
       transparent 50%
     );
     pointer-events: none;
@@ -229,7 +211,7 @@
     border-radius: 50%;
     background: radial-gradient(
       circle,
-      hsl(var(--accent) / 0.2) 0%,
+      hsl(205 60% 45% / 0.2) 0%,
       transparent 70%
     );
     pointer-events: none;
@@ -386,7 +368,7 @@
     inset: 0;
     background: linear-gradient(
       to top,
-      hsl(var(--background) / 0.9) 0%,
+      hsl(205 52% 15% / 0.9) 0%,
       transparent 60%
     );
   }
