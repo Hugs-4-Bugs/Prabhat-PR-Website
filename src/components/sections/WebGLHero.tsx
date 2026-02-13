@@ -248,10 +248,10 @@ const WebGLHero = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `linear-gradient(180deg, 
-            hsl(250 25% 6% / 0.5) 0%, 
-            hsl(280 30% 10% / 0.5) 40%,
-            hsl(350 40% 8% / 0.6) 70%,
-            hsl(250 25% 6% / 0.7) 100%)`,
+            hsl(250 25% 6% / 0.3) 0%, 
+            hsl(280 30% 10% / 0.3) 40%,
+            hsl(350 40% 8% / 0.35) 70%,
+            hsl(250 25% 6% / 0.4) 100%)`,
         }}
       />
 
@@ -326,7 +326,7 @@ const WebGLHero = () => {
             </motion.span>
           </a>
           <a
-            href="https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf"
+            href="/resume/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-montfort text-primary-foreground border-primary-foreground/30 text-center justify-center"

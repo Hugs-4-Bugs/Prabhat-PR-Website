@@ -114,7 +114,7 @@ const ContactSection = () => {
             className="mt-12"
           >
             <a
-              href="https://prabhat-codes.vercel.app/Prabhat%20Experience%20Profile.pdf"
+              href="/resume/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-montfort text-primary-foreground border-primary-foreground/50"

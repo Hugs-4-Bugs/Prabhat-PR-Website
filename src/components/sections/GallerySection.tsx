@@ -67,7 +67,7 @@ const GallerySection = () => {
   return (
     <section id="gallery" className="relative min-h-screen overflow-hidden py-20">
       {/* Space-themed section background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background/40" />
       
       {/* Floating cosmic particles for this section */}
       <div className="absolute inset-0 pointer-events-none">
