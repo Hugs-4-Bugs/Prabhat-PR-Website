@@ -33,17 +33,17 @@ const MusicPlayer = () => {
       audio.play()
         .then(() => setIsPlaying(true))
         .catch(() => {
-          // Auto-play blocked by browser, fallback to first interaction
           hasStartedRef.current = false;
         });
     };
 
-    // Try auto-play after 3 seconds
     const timer = setTimeout(startPlayback, 3000);
 
-    // Fallback: if auto-play was blocked, play on first user interaction
-    const handleInteraction = () => {
+    // Fallback: play on first interaction, but ignore clicks on the mute button
+    const handleInteraction = (e: Event) => {
       if (hasStartedRef.current) return;
+      // Skip if clicking the music button
+      if (buttonRef.current && e.target instanceof Node && buttonRef.current.contains(e.target)) return;
       startPlayback();
     };
 
@@ -66,21 +66,19 @@ const MusicPlayer = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    setIsMuted(prev => {
-      const newMuted = !prev;
-      isMutedRef.current = newMuted;
+    const newMuted = !isMutedRef.current;
+    isMutedRef.current = newMuted;
+    setIsMuted(newMuted);
 
-      if (newMuted) {
-        audio.pause();
-        setIsPlaying(false);
-      } else {
-        audio.play()
-          .then(() => setIsPlaying(true))
-          .catch(() => {});
-      }
-
-      return newMuted;
-    });
+    if (newMuted) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      hasStartedRef.current = true;
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {});
+    }
   }, []);
 
   return (
