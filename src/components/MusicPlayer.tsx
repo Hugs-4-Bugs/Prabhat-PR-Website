@@ -9,7 +9,8 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Sweet slow ambient background music (royalty-free, long track)
-  const musicUrl = 'https://cdn.pixabay.com/download/audio/2024/11/29/audio_d4e27ef7f3.mp3';
+  // Change the filename below to switch music (place your .mp3 file in the public/ folder)
+  const musicUrl = '/background-music.mp3';
 
   // Auto-play on first user interaction (required by browsers)
   useEffect(() => {
