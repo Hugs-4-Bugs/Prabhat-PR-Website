@@ -41,7 +41,7 @@ const CosmicBackground = () => {
         playsInline
         preload="auto"
         style={{
-          filter: 'brightness(0.4) saturate(1.3)',
+          filter: 'brightness(0.55) saturate(1.4)',
         }}
       />
 

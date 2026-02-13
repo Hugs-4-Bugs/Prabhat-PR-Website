@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 
 const MusicPlayer = () => {
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -23,14 +23,14 @@ const MusicPlayer = () => {
       const tryPlay = () => {
         audio
           .play()
-          .then(() => setIsPlaying(true))
+          .then(() => { setIsPlaying(true); setIsMuted(false); })
           .catch(() => {
             // Auto-play blocked, try on first interaction
             const playOnce = () => {
               if (audio.paused) {
                 audio
                   .play()
-                  .then(() => setIsPlaying(true))
+                  .then(() => { setIsPlaying(true); setIsMuted(false); })
                   .catch(() => {});
               }
               document.removeEventListener("click", playOnce);
