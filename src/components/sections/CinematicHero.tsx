@@ -95,17 +95,18 @@ const ParticleSystem = ({ shapeIndex, handState, burst }: ParticleSystemProps) =
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const morphProgress = useRef(1.0);
-  const prevShape = useRef(0);
 
   const shapesData = useMemo(
     () => SHAPES.map((_, i) => generateShapePositions(i)),
     []
   );
 
-  const { positions, targets, sizes, randoms } = useMemo(() => {
+  // Create geometry imperatively to avoid React reconciliation issues
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
     const init = shapesData[0];
-    const positions = new Float32Array(init);
-    const targets = new Float32Array(init);
+    geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(init), 3));
+    geo.setAttribute('aTarget', new THREE.BufferAttribute(new Float32Array(init), 3));
     const sizes = new Float32Array(PARTICLE_COUNT);
     const randoms = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -114,63 +115,63 @@ const ParticleSystem = ({ shapeIndex, handState, burst }: ParticleSystemProps) =
       randoms[i * 3 + 1] = Math.random() * 2 - 1;
       randoms[i * 3 + 2] = Math.random() * 2 - 1;
     }
-    return { positions, targets, sizes, randoms };
+    geo.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geo.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 3));
+    return geo;
   }, [shapesData]);
 
-  const uniforms = useMemo(
-    () => ({
-      uTime: { value: 0 },
-      uProgress: { value: 1.0 },
-      uColor1: { value: new THREE.Color(...SHAPES[0].color1) },
-      uColor2: { value: new THREE.Color(...SHAPES[0].color2) },
-      uHandPos: { value: new THREE.Vector3(0, 0, 0) },
-      uHandInfluence: { value: 0 },
-      uExpansion: { value: 0.3 },
-      uBurst: { value: 0 },
-    }),
+  const material = useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms: {
+          uTime: { value: 0 },
+          uProgress: { value: 1.0 },
+          uColor1: { value: new THREE.Color(...SHAPES[0].color1) },
+          uColor2: { value: new THREE.Color(...SHAPES[0].color2) },
+          uHandPos: { value: new THREE.Vector3(0, 0, 0) },
+          uHandInfluence: { value: 0 },
+          uExpansion: { value: 0.3 },
+          uBurst: { value: 0 },
+        },
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      }),
     []
   );
 
   // Shape change handler
   useEffect(() => {
-    if (!pointsRef.current) return;
-    const geo = pointsRef.current.geometry;
-    const posAttr = geo.getAttribute('position') as THREE.BufferAttribute;
-    const targetAttr = geo.getAttribute('aTarget') as THREE.BufferAttribute;
+    const posAttr = geometry.getAttribute('position') as THREE.BufferAttribute;
+    const targetAttr = geometry.getAttribute('aTarget') as THREE.BufferAttribute;
 
-    // Copy current target → position (start of new morph)
     const tArr = targetAttr.array as Float32Array;
     const pArr = posAttr.array as Float32Array;
     for (let i = 0; i < PARTICLE_COUNT * 3; i++) pArr[i] = tArr[i];
     posAttr.needsUpdate = true;
 
-    // Set new target
     const newShape = shapesData[shapeIndex];
     for (let i = 0; i < PARTICLE_COUNT * 3; i++) tArr[i] = newShape[i];
     targetAttr.needsUpdate = true;
 
     morphProgress.current = 0;
-    prevShape.current = shapeIndex;
-  }, [shapeIndex, shapesData]);
+  }, [shapeIndex, shapesData, geometry]);
 
   useFrame((state) => {
-    if (!materialRef.current) return;
-    const u = materialRef.current.uniforms;
+    const u = material.uniforms;
     const t = state.clock.elapsedTime;
     u.uTime.value = t;
 
-    // Morph progress
     if (morphProgress.current < 1) {
       morphProgress.current = Math.min(1, morphProgress.current + 0.006);
     }
     u.uProgress.value = morphProgress.current;
 
-    // Burst decay
-    u.uBurst.value = burst * Math.max(0, 1 - (t % 100));
     u.uBurst.value *= 0.95;
     if (burst > 0) u.uBurst.value = burst;
 
-    // Hand tracking
     if (handState.position && handState.isTracking) {
       const hp = u.uHandPos.value;
       hp.x += ((handState.position.x - 0.5) * 8 - hp.x) * 0.08;
@@ -181,37 +182,25 @@ const ParticleSystem = ({ shapeIndex, handState, burst }: ParticleSystemProps) =
       u.uHandInfluence.value *= 0.96;
     }
 
-    // Color lerp
     const shape = SHAPES[shapeIndex];
     u.uColor1.value.lerp(new THREE.Color(...shape.color1), 0.015);
     u.uColor2.value.lerp(new THREE.Color(...shape.color2), 0.015);
 
-    // Gentle scene rotation
     if (pointsRef.current) {
       pointsRef.current.rotation.y = t * 0.04;
       pointsRef.current.rotation.x = Math.sin(t * 0.025) * 0.08;
     }
   });
 
-  return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={PARTICLE_COUNT} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-aTarget" count={PARTICLE_COUNT} array={targets} itemSize={3} />
-        <bufferAttribute attach="attributes-aSize" count={PARTICLE_COUNT} array={sizes} itemSize={1} />
-        <bufferAttribute attach="attributes-aRandom" count={PARTICLE_COUNT} array={randoms} itemSize={3} />
-      </bufferGeometry>
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        transparent
-        depthWrite={false}
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
-  );
+  // Clean up on unmount
+  useEffect(() => {
+    return () => {
+      geometry.dispose();
+      material.dispose();
+    };
+  }, [geometry, material]);
+
+  return <points ref={pointsRef} geometry={geometry} material={material} />;
 };
 
 const WebcamPip = ({ stream }: { stream: MediaStream }) => {
