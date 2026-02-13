@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX } from 'lucide-react';
 
@@ -8,67 +8,72 @@ const MusicPlayer = () => {
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const isMutedRef = useRef(false);
+  const hasStartedRef = useRef(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   // Change the filename below to switch music (place your .mp3 file in the public/ folder)
   const musicUrl = '/background-music.mp3';
 
-  // Sync ref with state so event listeners always see latest value
+  // Keep ref in sync
   useEffect(() => {
     isMutedRef.current = isMuted;
   }, [isMuted]);
 
-  // Setup audio and auto-play on first user interaction
+  // Start music 3 seconds after first user interaction
   useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    const handleFirstInteraction = () => {
+      if (hasStartedRef.current) return;
+      hasStartedRef.current = true;
 
-    audio.volume = 0.1;
-    audio.loop = true;
+      // Wait 3 seconds before playing
+      setTimeout(() => {
+        const audio = audioRef.current;
+        if (!audio || isMutedRef.current) return;
+        audio.volume = 0.1;
+        audio.loop = true;
+        audio.play()
+          .then(() => setIsPlaying(true))
+          .catch((err) => console.log('Play failed:', err));
+      }, 3000);
 
-    const handleInteraction = async () => {
-      // Don't play if user has muted
-      if (isMutedRef.current) return;
-      if (audio.paused) {
-        try {
-          await audio.play();
-          setIsPlaying(true);
-        } catch (err) {
-          console.log('Play failed:', err);
-        }
-      }
+      // Remove all listeners after first interaction
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
     };
 
-    // Try auto-play
-    handleInteraction();
-
-    window.addEventListener('click', handleInteraction);
-    window.addEventListener('keydown', handleInteraction);
-    window.addEventListener('touchstart', handleInteraction);
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('keydown', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
 
     return () => {
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('keydown', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('keydown', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
     };
-  }, []); // Run once only
+  }, []);
 
-  // Handle mute/unmute
-  useEffect(() => {
+  // Handle mute/unmute toggle
+  const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isMuted) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  }, [isMuted]);
+    setIsMuted(prev => {
+      const newMuted = !prev;
+      isMutedRef.current = newMuted;
 
-  const toggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent window click listener from re-playing
-    setIsMuted(prev => !prev);
-  };
+      if (newMuted) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        audio.play()
+          .then(() => setIsPlaying(true))
+          .catch(() => {});
+      }
+
+      return newMuted;
+    });
+  }, []);
 
   return (
     <>
@@ -96,36 +101,43 @@ const MusicPlayer = () => {
           )}
         </AnimatePresence>
 
-        {/* Music button */}
-        <motion.button
-          onClick={toggleMute}
-          className="w-12 h-12 rounded-full bg-card/90 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors duration-300 relative"
+        {/* Music button - using native button inside motion.div to avoid event issues */}
+        <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          data-cursor-hover
-          aria-label={isMuted ? 'Play music' : 'Mute music'}
         >
-          {/* Sound waves animation when playing */}
-          {!isMuted && isPlaying && (
-            <motion.div
-              className="absolute inset-0 rounded-full border-2 border-accent/30"
-              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          )}
-          
-          <motion.div
-            initial={false}
-            animate={{ scale: isMuted ? 1 : [1, 1.1, 1] }}
-            transition={{ duration: 0.5, repeat: isMuted ? 0 : Infinity }}
+          <button
+            ref={buttonRef}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleMute();
+            }}
+            className="w-12 h-12 rounded-full bg-card/90 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors duration-300 relative"
+            data-cursor-hover
+            aria-label={isMuted ? 'Play music' : 'Mute music'}
           >
-            {isMuted ? (
-              <VolumeX className="w-5 h-5" />
-            ) : (
-              <Volume2 className="w-5 h-5" />
+            {/* Sound waves animation when playing */}
+            {!isMuted && isPlaying && (
+              <motion.div
+                className="absolute inset-0 rounded-full border-2 border-accent/30"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
             )}
-          </motion.div>
-        </motion.button>
+            
+            <motion.div
+              initial={false}
+              animate={{ scale: isMuted ? 1 : [1, 1.1, 1] }}
+              transition={{ duration: 0.5, repeat: isMuted ? 0 : Infinity }}
+            >
+              {isMuted ? (
+                <VolumeX className="w-5 h-5" />
+              ) : (
+                <Volume2 className="w-5 h-5" />
+              )}
+            </motion.div>
+          </button>
+        </motion.div>
 
         {/* Music visualizer bars */}
         {!isMuted && isPlaying && (
