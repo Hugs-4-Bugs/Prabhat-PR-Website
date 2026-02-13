@@ -6,85 +6,90 @@ const MusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const isMutedRef = useRef(false);
-  const hasStartedRef = useRef(false);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioInitialized = useRef(false);
+  const userToggledMute = useRef(false);
 
   // Change the filename below to switch music (place your .mp3 file in the public/ folder)
   const musicUrl = '/background-music.mp3';
 
-  // Keep ref in sync
+  // Create and configure audio element once (not in JSX to avoid React re-render issues)
   useEffect(() => {
-    isMutedRef.current = isMuted;
-  }, [isMuted]);
-
-  // Auto-play music 3 seconds after page load
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
+    const audio = new Audio(musicUrl);
     audio.volume = 0.1;
     audio.loop = true;
+    audio.preload = 'auto';
+    audioRef.current = audio;
 
-    const startPlayback = () => {
-      if (hasStartedRef.current || isMutedRef.current) return;
-      hasStartedRef.current = true;
+    return () => {
+      audio.pause();
+      audio.src = '';
+    };
+  }, [musicUrl]);
+
+  // Auto-play after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const audio = audioRef.current;
+      if (!audio || audioInitialized.current || userToggledMute.current) return;
+      audioInitialized.current = true;
+
       audio.play()
         .then(() => setIsPlaying(true))
         .catch(() => {
-          hasStartedRef.current = false;
+          // Browser blocked auto-play; try on first user interaction
+          audioInitialized.current = false;
+          const playOnInteraction = () => {
+            if (audioInitialized.current || userToggledMute.current) return;
+            audioInitialized.current = true;
+            audio.play()
+              .then(() => {
+                setIsPlaying(true);
+                cleanup();
+              })
+              .catch(() => { audioInitialized.current = false; });
+          };
+          const cleanup = () => {
+            document.removeEventListener('click', playOnInteraction, true);
+            document.removeEventListener('keydown', playOnInteraction, true);
+            document.removeEventListener('touchstart', playOnInteraction, true);
+          };
+          document.addEventListener('click', playOnInteraction, true);
+          document.addEventListener('keydown', playOnInteraction, true);
+          document.addEventListener('touchstart', playOnInteraction, true);
         });
-    };
+    }, 3000);
 
-    const timer = setTimeout(startPlayback, 3000);
-
-    // Fallback: play on first interaction, but ignore clicks on the mute button
-    const handleInteraction = (e: Event) => {
-      if (hasStartedRef.current) return;
-      // Skip if clicking the music button
-      if (buttonRef.current && e.target instanceof Node && buttonRef.current.contains(e.target)) return;
-      startPlayback();
-    };
-
-    document.addEventListener('click', handleInteraction);
-    document.addEventListener('keydown', handleInteraction);
-    document.addEventListener('touchstart', handleInteraction);
-    document.addEventListener('scroll', handleInteraction, { once: true });
-
-    return () => {
-      clearTimeout(timer);
-      document.removeEventListener('click', handleInteraction);
-      document.removeEventListener('keydown', handleInteraction);
-      document.removeEventListener('touchstart', handleInteraction);
-      document.removeEventListener('scroll', handleInteraction);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
-  // Handle mute/unmute toggle
+  // Toggle mute - directly controls audio, no effects involved
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const newMuted = !isMutedRef.current;
-    isMutedRef.current = newMuted;
-    setIsMuted(newMuted);
+    userToggledMute.current = true;
 
-    if (newMuted) {
+    if (!isMuted) {
+      // Muting: pause the audio
       audio.pause();
       setIsPlaying(false);
+      setIsMuted(true);
     } else {
-      hasStartedRef.current = true;
+      // Unmuting: resume the audio
       audio.play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {});
+        .then(() => {
+          setIsPlaying(true);
+          setIsMuted(false);
+        })
+        .catch(() => {
+          setIsMuted(false);
+        });
     }
-  }, []);
+  }, [isMuted]);
 
   return (
     <>
-      <audio ref={audioRef} src={musicUrl} preload="auto" />
-      
       <motion.div
         className="fixed bottom-6 right-6 z-50 flex items-center gap-3"
         onHoverStart={() => setIsHovered(true)}
@@ -107,22 +112,22 @@ const MusicPlayer = () => {
           )}
         </AnimatePresence>
 
-        {/* Music button - using native button inside motion.div to avoid event issues */}
+        {/* Music button */}
         <motion.div
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
           <button
-            ref={buttonRef}
-            onClick={(e) => {
+            onPointerDown={(e) => {
+              // Stop this click from reaching any document-level listeners
               e.stopPropagation();
+              e.preventDefault();
               toggleMute();
             }}
             className="w-12 h-12 rounded-full bg-card/90 backdrop-blur-md border border-border flex items-center justify-center text-foreground hover:bg-card transition-colors duration-300 relative"
             data-cursor-hover
             aria-label={isMuted ? 'Play music' : 'Mute music'}
           >
-            {/* Sound waves animation when playing */}
             {!isMuted && isPlaying && (
               <motion.div
                 className="absolute inset-0 rounded-full border-2 border-accent/30"
