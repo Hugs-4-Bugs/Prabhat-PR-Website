@@ -327,8 +327,7 @@ const WebGLHero = () => {
           </a>
           <a
             href="/resume/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Prabhat_Kumar_Resume.pdf"
             className="btn-montfort text-primary-foreground border-primary-foreground/30 text-center justify-center"
             data-cursor-hover
           >
