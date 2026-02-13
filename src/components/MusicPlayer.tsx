@@ -1,56 +1,47 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX } from 'lucide-react';
 
 const MusicPlayer = () => {
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const manualControlRef = useRef(false);
 
-  // Change the filename below to switch music (place your .mp3 file in the public/ folder)
   const musicUrl = '/background-music.mp3';
 
   // Auto-play after 3 seconds
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.1;
+    audio.loop = true;
+
     const timer = setTimeout(() => {
-      const audio = audioRef.current;
-      if (!audio) return;
+      // Don't auto-play if user already manually controlled
+      if (manualControlRef.current) return;
 
-      audio.volume = 0.1;
-      audio.loop = true;
-
-      const tryPlay = () => {
-        audio.play()
-          .then(() => setIsPlaying(true))
-          .catch(() => {
-            // Auto-play blocked, try on first interaction
-            const playOnce = () => {
-              if (audio.paused) {
-                audio.play()
-                  .then(() => setIsPlaying(true))
-                  .catch(() => {});
-              }
-              document.removeEventListener('click', playOnce);
-              document.removeEventListener('keydown', playOnce);
-            };
-            document.addEventListener('click', playOnce, { once: true });
-            document.addEventListener('keydown', playOnce, { once: true });
-          });
-      };
-
-      tryPlay();
+      audio.play()
+        .then(() => {
+          setIsPlaying(true);
+          setIsMuted(false);
+        })
+        .catch(() => {
+          // Auto-play blocked — will play on first manual toggle
+        });
     }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Direct DOM control — no state race conditions
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Check actual DOM state, not React state
+    manualControlRef.current = true;
+
     if (audio.paused) {
       audio.play()
         .then(() => {
@@ -63,7 +54,7 @@ const MusicPlayer = () => {
       setIsPlaying(false);
       setIsMuted(true);
     }
-  };
+  }, []);
 
   return (
     <>
