@@ -48,11 +48,13 @@ const MusicPlayer = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (audio.paused) {
+    if (audio.paused || audio.volume === 0) {
+      audio.volume = 0.1;
       audio.play().then(() => {
         setIsPlaying(true);
       }).catch(() => {});
     } else {
+      audio.volume = 0;
       audio.pause();
       setIsPlaying(false);
     }
