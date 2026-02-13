@@ -9,7 +9,7 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Change the filename below to switch music (place your .mp3 file in the public/ folder)
-  const musicUrl = "/background-music.mp";
+  const musicUrl = "/background-music.mp3";
 
   // Auto-play after 3 seconds
   useEffect(() => {
