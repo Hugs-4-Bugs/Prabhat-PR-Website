@@ -17,6 +17,7 @@ const Navigation = () => {
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
+    { name: 'Gallery', href: '#gallery' },
     { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -28,7 +29,7 @@ const Navigation = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.5 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled ? 'bg-primary/90 backdrop-blur-md' : 'bg-transparent'
+          isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-border/20' : 'bg-transparent'
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-12">
@@ -36,7 +37,7 @@ const Navigation = () => {
             {/* Logo */}
             <motion.a
               href="#home"
-              className="font-display text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-primary-foreground uppercase"
+              className="font-display text-base sm:text-lg lg:text-xl tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] text-foreground uppercase"
               whileHover={{ scale: 1.02 }}
               data-cursor-hover
             >
@@ -49,7 +50,7 @@ const Navigation = () => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="nav-link text-primary-foreground"
+                  className="nav-link text-foreground/80 hover:text-accent"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
@@ -63,7 +64,7 @@ const Navigation = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-primary-foreground p-2"
+              className="lg:hidden text-foreground p-2"
               data-cursor-hover
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMenuOpen}
@@ -94,14 +95,14 @@ const Navigation = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-primary/95 backdrop-blur-lg lg:hidden flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-lg lg:hidden flex items-center justify-center"
           >
             <div className="flex flex-col items-center gap-8">
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="font-display text-3xl text-primary-foreground tracking-widest"
+                  className="font-display text-3xl text-foreground tracking-widest hover:text-accent transition-colors"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}

@@ -60,30 +60,38 @@
   }
 
   .dark {
-    --background: 220 20% 10%;
-    --foreground: 210 30% 95%;
+    /* Deep space cosmic palette */
+    --background: 240 15% 5%;
+    --foreground: 220 20% 92%;
     
-    --card: 220 20% 14%;
-    --card-foreground: 210 30% 95%;
+    --card: 250 20% 8%;
+    --card-foreground: 220 20% 92%;
     
-    --popover: 220 20% 14%;
-    --popover-foreground: 210 30% 95%;
+    --popover: 250 20% 8%;
+    --popover-foreground: 220 20% 92%;
     
-    --primary: 220 20% 14%;
-    --primary-foreground: 210 30% 95%;
+    --primary: 250 25% 10%;
+    --primary-foreground: 220 20% 95%;
     
-    --secondary: 220 15% 20%;
-    --secondary-foreground: 210 30% 95%;
+    --secondary: 260 15% 15%;
+    --secondary-foreground: 220 20% 92%;
     
-    --muted: 220 15% 18%;
-    --muted-foreground: 210 20% 70%;
+    --muted: 250 15% 12%;
+    --muted-foreground: 220 15% 65%;
     
-    --accent: 200 70% 55%;
-    --accent-foreground: 220 20% 10%;
+    /* Cosmic crimson/nebula accent */
+    --accent: 350 75% 55%;
+    --accent-foreground: 220 20% 95%;
     
-    --border: 220 15% 25%;
-    --input: 220 15% 25%;
-    --ring: 210 30% 95%;
+    --border: 260 15% 18%;
+    --input: 260 15% 18%;
+    --ring: 350 75% 55%;
+    
+    /* Space-specific tokens */
+    --nebula-red: 350 80% 40%;
+    --nebula-purple: 280 60% 35%;
+    --star-glow: 45 90% 70%;
+    --cosmic-blue: 220 80% 50%;
   }
 }
 
