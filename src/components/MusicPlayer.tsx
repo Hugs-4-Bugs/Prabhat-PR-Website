@@ -19,37 +19,45 @@ const MusicPlayer = () => {
     isMutedRef.current = isMuted;
   }, [isMuted]);
 
-  // Start music 3 seconds after first user interaction
+  // Auto-play music 3 seconds after page load
   useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (hasStartedRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.1;
+    audio.loop = true;
+
+    const startPlayback = () => {
+      if (hasStartedRef.current || isMutedRef.current) return;
       hasStartedRef.current = true;
-
-      // Wait 3 seconds before playing
-      setTimeout(() => {
-        const audio = audioRef.current;
-        if (!audio || isMutedRef.current) return;
-        audio.volume = 0.1;
-        audio.loop = true;
-        audio.play()
-          .then(() => setIsPlaying(true))
-          .catch((err) => console.log('Play failed:', err));
-      }, 3000);
-
-      // Remove all listeners after first interaction
-      document.removeEventListener('click', handleFirstInteraction);
-      document.removeEventListener('keydown', handleFirstInteraction);
-      document.removeEventListener('touchstart', handleFirstInteraction);
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch(() => {
+          // Auto-play blocked by browser, fallback to first interaction
+          hasStartedRef.current = false;
+        });
     };
 
-    document.addEventListener('click', handleFirstInteraction);
-    document.addEventListener('keydown', handleFirstInteraction);
-    document.addEventListener('touchstart', handleFirstInteraction);
+    // Try auto-play after 3 seconds
+    const timer = setTimeout(startPlayback, 3000);
+
+    // Fallback: if auto-play was blocked, play on first user interaction
+    const handleInteraction = () => {
+      if (hasStartedRef.current) return;
+      startPlayback();
+    };
+
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+    document.addEventListener('touchstart', handleInteraction);
+    document.addEventListener('scroll', handleInteraction, { once: true });
 
     return () => {
-      document.removeEventListener('click', handleFirstInteraction);
-      document.removeEventListener('keydown', handleFirstInteraction);
-      document.removeEventListener('touchstart', handleFirstInteraction);
+      clearTimeout(timer);
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('scroll', handleInteraction);
     };
   }, []);
 
