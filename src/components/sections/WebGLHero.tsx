@@ -248,9 +248,10 @@ const WebGLHero = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `linear-gradient(180deg, 
-            hsl(205 52% 15% / 0.3) 0%, 
-            hsl(205 52% 20% / 0.4) 50%, 
-            hsl(205 52% 15% / 0.5) 100%)`,
+            hsl(250 25% 6% / 0.5) 0%, 
+            hsl(280 30% 10% / 0.5) 40%,
+            hsl(350 40% 8% / 0.6) 70%,
+            hsl(250 25% 6% / 0.7) 100%)`,
         }}
       />
 

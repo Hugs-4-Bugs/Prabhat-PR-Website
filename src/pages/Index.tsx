@@ -3,8 +3,8 @@ import { AnimatePresence } from 'framer-motion';
 import { useLenis } from '@/hooks/useLenis';
 import Navigation from '@/components/Navigation';
 import LiquidCursor from '@/components/LiquidCursor';
-import ParticlesBackground from '@/components/ParticlesBackground';
-import AnimatedBackground from '@/components/AnimatedBackground';
+import CosmicBackground from '@/components/CosmicBackground';
+import SpaceParticles3D from '@/components/SpaceParticles3D';
 import AccessibleFocus from '@/components/AccessibleFocus';
 import LoadingScreen from '@/components/LoadingScreen';
 import ThemeToggle from '@/components/ThemeToggle';
@@ -16,6 +16,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import ProjectsSection from '@/components/sections/ProjectsSection';
 import SkillsSection from '@/components/sections/SkillsSection';
 import ExperienceSection from '@/components/sections/ExperienceSection';
+import GallerySection from '@/components/sections/GallerySection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import BlogSection from '@/components/sections/BlogSection';
 import ContactSection from '@/components/sections/ContactSection';
@@ -54,8 +55,8 @@ const Index = () => {
   return (
     <>
       <LoadingScreen onComplete={handleLoadingComplete} />
-      {showContent && <AnimatedBackground />}
-      {showContent && <ParticlesBackground />}
+      {showContent && <CosmicBackground />}
+      {showContent && <SpaceParticles3D />}
       <LiquidCursor />
       <AccessibleFocus />
       <ResumeModal isOpen={isResumeModalOpen} onClose={() => setIsResumeModalOpen(false)} />
@@ -74,6 +75,7 @@ const Index = () => {
                 <ProjectsSection />
                 <SkillsSection />
                 <ExperienceSection />
+                <GallerySection />
                 <TestimonialsSection />
                 <BlogSection />
                 <ContactSection />

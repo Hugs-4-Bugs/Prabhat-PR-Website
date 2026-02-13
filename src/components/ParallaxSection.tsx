@@ -74,9 +74,10 @@ const ParallaxSection = ({
         className="parallax-overlay"
         style={{
           background: `linear-gradient(180deg, 
-            hsl(205 52% 15% / ${overlayOpacity * 0.8}) 0%, 
-            hsl(205 52% 20% / ${overlayOpacity}) 50%, 
-            hsl(205 52% 15% / ${overlayOpacity * 0.9}) 100%)`,
+            hsl(250 25% 6% / ${overlayOpacity * 0.9}) 0%, 
+            hsl(280 30% 10% / ${overlayOpacity}) 40%,
+            hsl(350 40% 8% / ${overlayOpacity}) 70%,
+            hsl(250 25% 6% / ${overlayOpacity * 0.95}) 100%)`,
         }}
       />
 

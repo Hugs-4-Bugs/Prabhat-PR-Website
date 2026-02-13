@@ -10,13 +10,13 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-primary py-8 sm:py-12 border-t border-primary-foreground/10">
+    <footer className="relative bg-background/80 backdrop-blur-md py-8 sm:py-12 border-t border-border/30">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center gap-6 sm:gap-8">
           {/* Logo */}
           <motion.a
             href="#home"
-            className="font-display text-base sm:text-lg tracking-[0.15em] sm:tracking-[0.2em] text-primary-foreground uppercase"
+            className="font-display text-base sm:text-lg tracking-[0.15em] sm:tracking-[0.2em] text-foreground uppercase"
             whileHover={{ scale: 1.02 }}
             data-cursor-hover
             aria-label="Go to home"
@@ -32,7 +32,7 @@ const Footer = () => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/70 hover:text-primary-foreground hover:border-primary-foreground/50 hover:bg-primary-foreground/5 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-border/30 flex items-center justify-center text-foreground/70 hover:text-accent hover:border-accent/50 hover:bg-accent/10 transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 data-cursor-hover
@@ -51,7 +51,7 @@ const Footer = () => {
             
             <motion.a
               href="#home"
-              className="font-body text-xs tracking-wider text-primary-foreground/70 hover:text-primary-foreground transition-colors duration-300 flex items-center gap-2"
+              className="font-body text-xs tracking-wider text-foreground/70 hover:text-accent transition-colors duration-300 flex items-center gap-2"
               whileHover={{ y: -2 }}
               data-cursor-hover
             >
