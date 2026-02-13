@@ -108,14 +108,12 @@ const SkillsSection = () => {
         </div>
 
         {/* Skill Progress Bars */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl mx-auto mb-16 sm:mb-20 bg-card/30 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-border/50"
-        >
-          <h3 className="font-display text-xl text-foreground mb-6 tracking-wider text-center">
+        <div className="max-w-3xl mx-auto mb-16 sm:mb-20 bg-card/20 backdrop-blur-xl rounded-2xl p-8 sm:p-10 border border-border/30 relative overflow-hidden">
+          {/* Decorative corner accents */}
+          <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/30 rounded-tl-2xl" />
+          <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/30 rounded-br-2xl" />
+          
+          <h3 className="font-display text-xl text-foreground mb-8 tracking-[0.2em] text-center uppercase">
             Core Competencies
           </h3>
           {progressSkills.map((skill, index) => (
@@ -124,9 +122,10 @@ const SkillsSection = () => {
               name={skill.name}
               percentage={skill.percentage}
               delay={index * 0.1}
+              index={index}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* Skills Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">

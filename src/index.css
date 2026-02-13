@@ -469,3 +469,9 @@ body:not(.keyboard-navigation) *:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Shimmer animation for skill bars */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
