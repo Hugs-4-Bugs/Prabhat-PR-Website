@@ -192,37 +192,19 @@ const GallerySection = () => {
           </button>
         </div>
 
-        {/* Thumbnail strip */}
-        <div className="flex justify-center gap-2 sm:gap-3 mt-8 flex-wrap">
-          {galleryImages.map((img, idx) => (
-            <motion.button
+        {/* Dot indicators instead of thumbnails */}
+        <div className="flex justify-center gap-2 mt-8">
+          {galleryImages.map((_, idx) => (
+            <button
               key={idx}
               onClick={() => handleManual(idx)}
-              className={`relative w-16 h-12 sm:w-20 sm:h-14 rounded overflow-hidden border-2 transition-all duration-300 ${
+              className={`rounded-full transition-all duration-300 ${
                 idx === current
-                  ? 'border-accent shadow-[0_0_15px_-3px_hsl(350_80%_50%/0.4)] scale-110'
-                  : 'border-border/30 opacity-50 hover:opacity-80'
+                  ? 'w-8 h-2 bg-accent'
+                  : 'w-2 h-2 bg-foreground/30 hover:bg-foreground/50'
               }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               aria-label={`Go to image ${idx + 1}`}
-            >
-              <img
-                src={img.src}
-                alt={img.title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/placeholder.svg';
-                }}
-              />
-              {idx === current && (
-                <motion.div
-                  layoutId="gallery-active"
-                  className="absolute inset-0 border-2 border-accent rounded"
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-            </motion.button>
+            />
           ))}
         </div>
 
