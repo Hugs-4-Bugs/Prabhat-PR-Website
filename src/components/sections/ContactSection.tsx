@@ -115,7 +115,7 @@ const ContactSection = () => {
           >
             <a
               href="/resume/resume.pdf"
-              download="Prabhat_Kumar_Resume.pdf"
+              download="Prabhat_Experience_Profile.pdf"
               className="btn-montfort text-primary-foreground border-primary-foreground/50"
               data-cursor-hover
             >
