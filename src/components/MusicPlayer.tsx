@@ -8,7 +8,7 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const hasInitRef = useRef(false);
 
-  const musicUrl = "/background-music.mp3";
+  const musicUrl = "/Whisper.mp3";
 
   // Create audio element once
   useEffect(() => {
