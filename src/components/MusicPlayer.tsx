@@ -6,7 +6,7 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const hasInitRef = useRef(false);
+  const hasStartedRef = useRef(false);
 
   const musicUrl = "/Whisper.mp3";
 
@@ -25,40 +25,65 @@ const MusicPlayer = () => {
     };
   }, []);
 
-  // Try auto-play after delay
+  // Autoplay strategy: try after 2s, fallback to first user interaction
   useEffect(() => {
-    if (hasInitRef.current) return;
-    hasInitRef.current = true;
-
-    const timer = setTimeout(() => {
+    const tryPlay = () => {
       const audio = audioRef.current;
-      if (!audio) return;
+      if (!audio || hasStartedRef.current) return;
 
+      audio.volume = 0.1;
       audio.play().then(() => {
+        hasStartedRef.current = true;
         setIsPlaying(true);
+        removeListeners();
       }).catch(() => {
-        // Auto-play blocked — will play on first user click
+        // Autoplay blocked — listeners will handle it
       });
-    }, 3000);
+    };
 
-    return () => clearTimeout(timer);
+    // Attempt autoplay after 2 seconds
+    const timer = setTimeout(tryPlay, 2000);
+
+    // Fallback: play on first user interaction if autoplay was blocked
+    const onInteraction = () => {
+      if (hasStartedRef.current) return;
+      tryPlay();
+    };
+
+    const events = ["click", "touchstart", "keydown", "scroll"];
+    const addListeners = () => {
+      events.forEach((e) => document.addEventListener(e, onInteraction, { once: false, passive: true }));
+    };
+    const removeListeners = () => {
+      events.forEach((e) => document.removeEventListener(e, onInteraction));
+    };
+
+    // Add interaction listeners after the initial autoplay attempt delay
+    const listenerTimer = setTimeout(addListeners, 2500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(listenerTimer);
+      removeListeners();
+    };
   }, []);
 
   const handleToggle = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (audio.paused || audio.volume === 0) {
+    if (isPlaying) {
+      audio.pause();
+      audio.volume = 0;
+      setIsPlaying(false);
+    } else {
       audio.volume = 0.1;
       audio.play().then(() => {
+        hasStartedRef.current = true;
         setIsPlaying(true);
       }).catch(() => {});
-    } else {
-      audio.volume = 0;
-      audio.pause();
-      setIsPlaying(false);
     }
-  }, []);
+  }, [isPlaying]);
 
   return (
     <motion.div
