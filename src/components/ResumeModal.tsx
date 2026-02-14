@@ -15,7 +15,7 @@ const ResumeModal = ({ isOpen, onClose }: ResumeModalProps) => {
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = resumeUrl;
-    link.download = 'Prabhat_Kumar_Resume.pdf';
+    link.download = 'Prabhat_Experience_Profile.pdf';
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
