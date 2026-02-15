@@ -1,81 +1,81 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import ParallaxSection from '@/components/ParallaxSection';
-import SkillProgressBar from '@/components/SkillProgressBar';
-import skyClouds from '@/assets/sky-clouds.jpg';
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import ParallaxSection from "@/components/ParallaxSection";
+import SkillProgressBar from "@/components/SkillProgressBar";
+import skyClouds from "@/assets/sky-clouds.jpg";
 
 const skillCategories = [
   {
-    title: 'Languages',
-    skills: ['Java', 'JavaScript', 'TypeScript', 'SQL', 'HTML/CSS', 'Python'],
+    title: "Languages",
+    skills: ["Java", "JavaScript", "TypeScript", "SQL", "HTML/CSS", "Python"],
   },
   {
-    title: 'Backend',
-    skills: ['Spring Boot', 'Spring Security', 'JWT', 'Spring Cloud', 'Hibernate', 'Node.js', 'REST APIs'],
+    title: "Backend",
+    skills: ["Spring Boot", "Spring Security", "JWT", "Spring Cloud", "Hibernate", "Node.js", "REST APIs"],
   },
   {
-    title: 'Frontend',
-    skills: ['React', 'Next.js', 'Angular', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
+    title: "Frontend",
+    skills: ["React", "Next.js", "Angular", "Tailwind CSS", "Framer Motion", "Three.js"],
   },
   {
-    title: 'AI/ML',
-    skills: ['Spring AI', 'Ollama', 'OpenAI API', 'Scikit-learn', 'Pandas', 'TensorFlow'],
+    title: "AI/ML",
+    skills: ["Spring AI", "Ollama", "OpenAI API", "Scikit-learn", "Pandas", "TensorFlow"],
   },
   {
-    title: 'Cloud & DevOps',
-    skills: ['AWS (EC2, S3, Lambda, RDS)', 'Docker', 'Jenkins', 'Git', 'CI/CD'],
+    title: "Cloud & DevOps",
+    skills: ["AWS (EC2, S3, Lambda, RDS)", "Docker", "Jenkins", "Git", "CI/CD"],
   },
   {
-    title: 'Databases',
-    skills: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis'],
+    title: "Databases",
+    skills: ["MySQL", "PostgreSQL", "MongoDB", "Redis"],
   },
 ];
 
 const progressSkills = [
-  { name: 'Java & Spring Boot', percentage: 95 },
-  { name: 'Spring Security & JWT', percentage: 80}
-  { name: 'React & Next.js', percentage: 90 },
-  { name: 'RESTful APIs', percentage: 88 },
-  { name: 'Cloud (AWS/GCP)', percentage: 85 },
-  { name: 'System Design', percentage: 80 },
+  { name: "Java & Spring Boot", percentage: 95 },
+  { name: "Spring Security & JWT", percentage: 80 },
+  { name: "React & Next.js", percentage: 90 },
+  { name: "RESTful APIs", percentage: 88 },
+  { name: "Cloud (AWS/GCP)", percentage: 85 },
+  { name: "System Design", percentage: 80 },
 ];
 
 const services = [
   {
-    icon: '💻',
-    title: 'Web Application Development',
-    description: 'End-to-end responsive and performant modern web apps.',
+    icon: "💻",
+    title: "Web Application Development",
+    description: "End-to-end responsive and performant modern web apps.",
   },
   {
-    icon: '🔌',
-    title: 'API Design & Integration',
-    description: 'RESTful APIs and backend microservices for your apps.',
+    icon: "🔌",
+    title: "API Design & Integration",
+    description: "RESTful APIs and backend microservices for your apps.",
   },
   {
-    icon: '🤖',
-    title: 'AI/ML Implementation',
-    description: 'Machine learning models integrated into practical applications.',
+    icon: "🤖",
+    title: "AI/ML Implementation",
+    description: "Machine learning models integrated into practical applications.",
   },
   {
-    icon: '☕',
-    title: 'Java Software Development',
-    description: 'Expert Java Developer skilled in Spring Boot, Hibernate, Microservices.',
+    icon: "☕",
+    title: "Java Software Development",
+    description: "Expert Java Developer skilled in Spring Boot, Hibernate, Microservices.",
   },
   {
-    icon: '☁️',
-    title: 'Cloud Infrastructure & DevOps',
-    description: 'Cloud-native solutions with AWS, focusing on scalability and automation.',
+    icon: "☁️",
+    title: "Cloud Infrastructure & DevOps",
+    description: "Cloud-native solutions with AWS, focusing on scalability and automation.",
   },
   {
-    icon: '📈',
-    title: 'Strategic Trading Solutions',
-    description: '4+ years in Stock, Crypto, and Forex trading. Tailored strategies and insights.',
+    icon: "📈",
+    title: "Strategic Trading Solutions",
+    description: "4+ years in Stock, Crypto, and Forex trading. Tailored strategies and insights.",
   },
 ];
 
 const SkillsSection = () => {
   const titleRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(titleRef, { once: true, margin: '-10%' });
+  const isInView = useInView(titleRef, { once: true, margin: "-10%" });
 
   return (
     <ParallaxSection
@@ -96,7 +96,7 @@ const SkillsSection = () => {
           >
             My Expertise
           </motion.span>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -112,7 +112,7 @@ const SkillsSection = () => {
           {/* Decorative corner accents */}
           <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-accent/30 rounded-tl-2xl" />
           <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-accent/30 rounded-br-2xl" />
-          
+
           <h3 className="font-display text-xl text-foreground mb-8 tracking-[0.2em] text-center uppercase">
             Core Competencies
           </h3>
@@ -138,9 +138,7 @@ const SkillsSection = () => {
               transition={{ duration: 0.6, delay: catIndex * 0.1 }}
               className="group bg-card/20 backdrop-blur-sm rounded-lg p-5 border border-border/30 hover:border-accent/30 transition-all duration-300"
             >
-              <h3 className="font-display text-xl text-foreground mb-4 tracking-wider">
-                {category.title}
-              </h3>
+              <h3 className="font-display text-xl text-foreground mb-4 tracking-wider">{category.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
                   <motion.span
@@ -149,7 +147,7 @@ const SkillsSection = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: catIndex * 0.1 + skillIndex * 0.05 }}
-                    whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--accent) / 0.2)' }}
+                    whileHover={{ scale: 1.05, backgroundColor: "hsl(var(--accent) / 0.2)" }}
                     className="font-body text-sm px-3 py-1.5 bg-foreground/10 text-foreground/90 border border-foreground/20 rounded-lg cursor-default transition-colors"
                     data-cursor-hover
                   >
@@ -168,9 +166,7 @@ const SkillsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h3 className="font-display text-2xl md:text-3xl text-foreground tracking-wider">
-            My Cutting-Edge Services
-          </h3>
+          <h3 className="font-display text-2xl md:text-3xl text-foreground tracking-wider">My Cutting-Edge Services</h3>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -189,9 +185,7 @@ const SkillsSection = () => {
               <h4 className="font-display text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
                 {service.title}
               </h4>
-              <p className="font-body text-sm text-foreground/70">
-                {service.description}
-              </p>
+              <p className="font-body text-sm text-foreground/70">{service.description}</p>
             </motion.div>
           ))}
         </div>
