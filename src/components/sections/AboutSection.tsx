@@ -14,12 +14,15 @@ const CountUp = ({ target, suffix, decimals = 0, duration, start }: { target: nu
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!start) return;
+    if (!start) {
+      setValue(0);
+      return;
+    }
     const startTime = performance.now();
     let raf: number;
     const animate = (now: number) => {
       const progress = Math.min((now - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       setValue(eased * target);
       if (progress < 1) raf = requestAnimationFrame(animate);
     };
@@ -35,7 +38,7 @@ const interests = ['AI', 'Full Stack Development', 'Open Source', 'System Design
 
 const AboutSection = () => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(contentRef, { once: true, margin: '-10%' });
+  const isInView = useInView(contentRef, { once: false, margin: '-10%' });
 
   return (
     <ParallaxSection
