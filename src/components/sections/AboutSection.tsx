@@ -1,14 +1,35 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import ParallaxSection from '@/components/ParallaxSection';
 import forestValley from '@/assets/forest-valley.jpg';
 
 const stats = [
-  { number: '2+', label: 'Years Experience' },
-  { number: '4+', label: 'Years Trading' },
-  { number: '1M+', label: 'Requests Handled' },
-  { number: '99.9%', label: 'System Uptime' },
+  { target: 3, suffix: '+', label: 'Years Experience', duration: 1500 },
+  { target: 4, suffix: '+', label: 'Years Trading', duration: 1800 },
+  { target: 1, suffix: 'M+', label: 'Requests Handled', duration: 2000 },
+  { target: 99.9, suffix: '%', label: 'System Uptime', duration: 2200, decimals: 1 },
 ];
+
+const CountUp = ({ target, suffix, decimals = 0, duration, start }: { target: number; suffix: string; decimals?: number; duration: number; start: boolean }) => {
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    const startTime = performance.now();
+    let raf: number;
+    const animate = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      setValue(eased * target);
+      if (progress < 1) raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [start, target, duration]);
+
+  const display = decimals > 0 ? value.toFixed(decimals) : Math.floor(value);
+  return <>{display}{suffix}</>;
+};
 
 const interests = ['AI', 'Full Stack Development', 'Open Source', 'System Design', 'Trading', 'Innovation'];
 
@@ -111,7 +132,7 @@ const AboutSection = () => {
                 className="text-center lg:text-left"
               >
                 <div className="font-display text-4xl sm:text-5xl md:text-6xl text-primary-foreground mb-2">
-                  {stat.number}
+                  <CountUp target={stat.target} suffix={stat.suffix} decimals={stat.decimals} duration={stat.duration} start={isInView} />
                 </div>
                 <div className="font-body text-xs sm:text-sm tracking-wider text-primary-foreground/60 uppercase">
                   {stat.label}
