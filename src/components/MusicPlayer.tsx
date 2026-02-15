@@ -4,19 +4,26 @@ import { Volume2, VolumeX } from "lucide-react";
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const hasStartedRef = useRef(false);
+  const hasUnmutedRef = useRef(false);
 
   const musicUrl = "/Whisper.mp3";
 
-  // Create audio element once
+  // Create audio and start muted autoplay immediately
   useEffect(() => {
     const audio = new Audio(musicUrl);
     audio.volume = 0.1;
     audio.loop = true;
     audio.preload = "auto";
+    audio.muted = true;
     audioRef.current = audio;
+
+    // Start muted playback immediately
+    audio.play().then(() => {
+      setIsPlaying(true);
+    }).catch(() => {});
 
     return () => {
       audio.pause();
@@ -25,47 +32,29 @@ const MusicPlayer = () => {
     };
   }, []);
 
-  // Autoplay strategy: try after 2s, fallback to first user interaction
+  // Unmute on first user interaction
   useEffect(() => {
-    const tryPlay = () => {
-      const audio = audioRef.current;
-      if (!audio || hasStartedRef.current) return;
-
-      audio.volume = 0.1;
-      audio.play().then(() => {
-        hasStartedRef.current = true;
-        setIsPlaying(true);
-        removeListeners();
-      }).catch(() => {
-        // Autoplay blocked — listeners will handle it
-      });
-    };
-
-    // Attempt autoplay after 2 seconds
-    const timer = setTimeout(tryPlay, 2000);
-
-    // Fallback: play on first user interaction if autoplay was blocked
     const onInteraction = () => {
-      if (hasStartedRef.current) return;
-      tryPlay();
+      const audio = audioRef.current;
+      if (!audio || hasUnmutedRef.current) return;
+      hasUnmutedRef.current = true;
+      audio.muted = false;
+      audio.volume = 0.1;
+      setIsMuted(false);
+      // If not playing yet, start
+      if (audio.paused) {
+        audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
+      removeListeners();
     };
 
     const events = ["click", "touchstart", "keydown", "scroll"];
-    const addListeners = () => {
-      events.forEach((e) => document.addEventListener(e, onInteraction, { once: false, passive: true }));
-    };
+    events.forEach(e => document.addEventListener(e, onInteraction, { once: false, passive: true }));
     const removeListeners = () => {
-      events.forEach((e) => document.removeEventListener(e, onInteraction));
+      events.forEach(e => document.removeEventListener(e, onInteraction));
     };
 
-    // Add interaction listeners after the initial autoplay attempt delay
-    const listenerTimer = setTimeout(addListeners, 2500);
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(listenerTimer);
-      removeListeners();
-    };
+    return removeListeners;
   }, []);
 
   const handleToggle = useCallback(() => {
@@ -74,12 +63,13 @@ const MusicPlayer = () => {
 
     if (isPlaying) {
       audio.pause();
-      audio.volume = 0;
       setIsPlaying(false);
     } else {
+      audio.muted = false;
       audio.volume = 0.1;
+      hasUnmutedRef.current = true;
+      setIsMuted(false);
       audio.play().then(() => {
-        hasStartedRef.current = true;
         setIsPlaying(true);
       }).catch(() => {});
     }
