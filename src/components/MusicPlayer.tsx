@@ -7,14 +7,12 @@ const MusicPlayer = () => {
   const [isHovered, setIsHovered] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const hasStartedRef = useRef(false);
-  const mountIdRef = useRef(Date.now()); // unique per mount to force fresh start
 
   const musicUrl = "/Whisper.mp3";
 
-  // Create audio element fresh on every mount (including refresh)
+  // Create audio element once
   useEffect(() => {
-    hasStartedRef.current = false;
-    const audio = new Audio(musicUrl + '?t=' + mountIdRef.current);
+    const audio = new Audio(musicUrl);
     audio.volume = 0.1;
     audio.loop = true;
     audio.preload = "auto";
