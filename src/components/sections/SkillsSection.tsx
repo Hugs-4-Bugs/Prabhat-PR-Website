@@ -33,9 +33,9 @@ const skillCategories = [
 
 const progressSkills = [
   { name: 'Java & Spring Boot', percentage: 95 },
+  { name: 'Spring Security & JWT', percentage: 80}
   { name: 'React & Next.js', percentage: 90 },
-  { name: 'TypeScript', percentage: 88 },
-  { name: 'Python & ML', percentage: 82 },
+  { name: 'RESTful APIs', percentage: 88 },
   { name: 'Cloud (AWS/GCP)', percentage: 85 },
   { name: 'System Design', percentage: 80 },
 ];
