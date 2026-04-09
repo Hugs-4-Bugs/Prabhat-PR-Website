@@ -451,6 +451,17 @@
     background: radial-gradient(circle, hsl(350 75% 70% / 0.5) 0%, hsl(280 60% 50% / 0.3) 40%, transparent 70%);
   }
 
+  /* Liquid wobble idle animation */
+  @keyframes liquid-wobble {
+    0%, 100% { transform: rotateX(0deg) rotateY(0deg) translateY(0px); }
+    15% { transform: rotateX(1.5deg) rotateY(-1deg) translateY(-0.5px); }
+    30% { transform: rotateX(-1deg) rotateY(1.5deg) translateY(0.3px); }
+    45% { transform: rotateX(0.8deg) rotateY(-0.5deg) translateY(-0.3px); }
+    60% { transform: rotateX(-0.5deg) rotateY(1deg) translateY(0.5px); }
+    75% { transform: rotateX(1deg) rotateY(-1.2deg) translateY(-0.2px); }
+    90% { transform: rotateX(-0.8deg) rotateY(0.8deg) translateY(0.2px); }
+  }
+
   /* ========== Liquid Nav Link with Flip ========== */
   .liquid-nav-link {
     position: relative;
@@ -458,6 +469,15 @@
     perspective: 600px;
     cursor: pointer;
   }
+
+  .liquid-nav-link:nth-child(1) .nav-link-inner { animation-delay: 0s; }
+  .liquid-nav-link:nth-child(2) .nav-link-inner { animation-delay: 0.4s; }
+  .liquid-nav-link:nth-child(3) .nav-link-inner { animation-delay: 0.8s; }
+  .liquid-nav-link:nth-child(4) .nav-link-inner { animation-delay: 1.2s; }
+  .liquid-nav-link:nth-child(5) .nav-link-inner { animation-delay: 1.6s; }
+  .liquid-nav-link:nth-child(6) .nav-link-inner { animation-delay: 2.0s; }
+  .liquid-nav-link:nth-child(7) .nav-link-inner { animation-delay: 2.4s; }
+  .liquid-nav-link:nth-child(8) .nav-link-inner { animation-delay: 2.8s; }
 
   .liquid-nav-link .nav-link-inner {
     position: relative;
@@ -480,7 +500,12 @@
     transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                 box-shadow 0.5s ease,
                 border-color 0.4s ease;
+    animation: liquid-wobble 6s ease-in-out infinite;
     overflow: hidden;
+  }
+
+  .liquid-nav-link:hover .nav-link-inner {
+    animation-play-state: paused;
   }
 
   .liquid-nav-link .nav-link-inner::before {
