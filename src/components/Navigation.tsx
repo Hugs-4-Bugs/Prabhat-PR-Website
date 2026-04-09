@@ -45,18 +45,30 @@ const Navigation = () => {
             </motion.a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="hidden lg:flex items-center gap-3">
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="nav-link text-foreground/80 hover:text-accent"
+                  className="liquid-nav-link"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                   data-cursor-hover
+                  onMouseMove={(e) => {
+                    const inner = e.currentTarget.querySelector('.nav-link-inner') as HTMLElement;
+                    if (inner) {
+                      const rect = inner.getBoundingClientRect();
+                      inner.style.setProperty('--nav-x', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+                      inner.style.setProperty('--nav-y', `${((e.clientY - rect.top) / rect.height) * 100}%`);
+                    }
+                  }}
                 >
-                  {link.name}
+                  <span className="nav-link-inner">
+                    <span className="relative z-10 font-body text-xs tracking-[0.1em] uppercase text-foreground/90 hover:text-accent transition-colors">
+                      {link.name}
+                    </span>
+                  </span>
                 </motion.a>
               ))}
             </div>
