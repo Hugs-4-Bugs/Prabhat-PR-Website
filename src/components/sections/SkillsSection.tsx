@@ -136,7 +136,7 @@ const SkillsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-              className="group bg-card/20 backdrop-blur-sm rounded-lg p-5 border border-border/30 hover:border-accent/30 transition-all duration-300"
+              className="group liquid-card p-5"
             >
               <h3 className="font-display text-xl text-foreground mb-4 tracking-wider">{category.title}</h3>
               <div className="flex flex-wrap gap-2">
@@ -178,7 +178,7 @@ const SkillsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="p-6 border border-border/50 bg-card/30 backdrop-blur-sm rounded-xl group cursor-pointer hover:border-accent/30 transition-all duration-300"
+              className="p-6 liquid-card group cursor-pointer"
               data-cursor-hover
             >
               <span className="text-3xl mb-4 block">{service.icon}</span>
