@@ -312,6 +312,21 @@
     transition: transform 0.1s linear;
   }
   
+  /* Liquid ripple keyframes */
+  @keyframes liquid-ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.7;
+    }
+    60% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(4);
+      opacity: 0;
+    }
+  }
+
   /* Liquid 3D Button styles */
   .liquid-btn {
     position: relative;
@@ -319,21 +334,21 @@
     border-radius: 16px;
     background: linear-gradient(
       145deg,
-      hsl(var(--primary) / 0.7) 0%,
-      hsl(var(--accent) / 0.5) 50%,
-      hsl(var(--primary) / 0.8) 100%
+      hsl(var(--primary) / 0.8) 0%,
+      hsl(var(--accent) / 0.6) 40%,
+      hsl(var(--primary) / 0.9) 100%
     );
-    border: 1px solid hsl(var(--accent) / 0.3);
+    border: 1px solid hsl(var(--accent) / 0.4);
     box-shadow:
-      0 4px 15px hsl(var(--accent) / 0.2),
-      0 8px 30px hsl(var(--primary) / 0.15),
-      inset 0 1px 0 hsl(var(--accent-foreground) / 0.15),
-      inset 0 -2px 4px hsl(var(--primary) / 0.3);
-    backdrop-filter: blur(12px);
+      0 6px 20px hsl(var(--accent) / 0.3),
+      0 12px 40px hsl(var(--primary) / 0.2),
+      inset 0 2px 0 hsl(var(--accent-foreground) / 0.2),
+      inset 0 -3px 6px hsl(var(--primary) / 0.4);
+    backdrop-filter: blur(14px);
     transform-style: preserve-3d;
-    perspective: 800px;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.4s ease,
+    perspective: 600px;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s ease,
                 border-color 0.3s ease;
   }
 
@@ -344,10 +359,10 @@
     border-radius: inherit;
     background: linear-gradient(
       135deg,
-      hsl(var(--accent-foreground) / 0.2) 0%,
-      transparent 40%,
-      transparent 60%,
-      hsl(var(--accent-foreground) / 0.05) 100%
+      hsl(var(--accent-foreground) / 0.3) 0%,
+      transparent 35%,
+      transparent 65%,
+      hsl(var(--accent-foreground) / 0.08) 100%
     );
     pointer-events: none;
     z-index: 1;
@@ -363,8 +378,8 @@
     border-radius: inherit;
     background: radial-gradient(
       circle at var(--liquid-x, 50%) var(--liquid-y, 30%),
-      hsl(var(--accent) / 0.35) 0%,
-      transparent 50%
+      hsl(var(--accent) / 0.5) 0%,
+      transparent 45%
     );
     pointer-events: none;
     z-index: 0;
@@ -373,13 +388,13 @@
   }
 
   .liquid-btn:hover {
-    transform: translateY(-3px) rotateX(3deg) rotateY(-2deg) scale(1.02);
+    transform: translateY(-4px) rotateX(8deg) rotateY(-5deg) scale(1.04);
     box-shadow:
-      0 8px 25px hsl(var(--accent) / 0.35),
-      0 16px 50px hsl(var(--primary) / 0.2),
-      inset 0 1px 0 hsl(var(--accent-foreground) / 0.2),
-      inset 0 -2px 6px hsl(var(--primary) / 0.4);
-    border-color: hsl(var(--accent) / 0.5);
+      0 12px 35px hsl(var(--accent) / 0.5),
+      0 24px 60px hsl(var(--primary) / 0.3),
+      inset 0 2px 0 hsl(var(--accent-foreground) / 0.3),
+      inset 0 -3px 8px hsl(var(--primary) / 0.5);
+    border-color: hsl(var(--accent) / 0.7);
   }
 
   .liquid-btn:hover::after {
@@ -387,36 +402,155 @@
   }
 
   .liquid-btn:active {
-    transform: translateY(-1px) scale(0.98);
+    transform: translateY(-1px) rotateX(2deg) scale(0.97);
     box-shadow:
-      0 2px 10px hsl(var(--accent) / 0.3),
-      inset 0 2px 4px hsl(var(--primary) / 0.5);
+      0 3px 12px hsl(var(--accent) / 0.4),
+      inset 0 3px 8px hsl(var(--primary) / 0.6);
+  }
+
+  /* Ripple child element */
+  .liquid-btn .liquid-ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--accent-foreground) / 0.5) 0%, hsl(var(--accent) / 0.3) 40%, transparent 70%);
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+    z-index: 2;
+    animation: liquid-ripple 0.7s ease-out forwards;
   }
 
   /* Dark mode liquid enhancements */
   .dark .liquid-btn {
     background: linear-gradient(
       145deg,
-      hsl(350 75% 20% / 0.6) 0%,
-      hsl(280 60% 15% / 0.5) 30%,
-      hsl(350 75% 25% / 0.7) 70%,
-      hsl(220 80% 20% / 0.5) 100%
+      hsl(350 75% 22% / 0.7) 0%,
+      hsl(280 60% 18% / 0.6) 25%,
+      hsl(350 75% 28% / 0.8) 60%,
+      hsl(220 80% 22% / 0.6) 100%
     );
-    border-color: hsl(350 75% 55% / 0.3);
+    border-color: hsl(350 75% 55% / 0.4);
     box-shadow:
-      0 4px 15px hsl(350 75% 30% / 0.3),
-      0 8px 30px hsl(280 60% 20% / 0.2),
-      inset 0 1px 0 hsl(350 75% 70% / 0.15),
-      inset 0 -2px 4px hsl(240 15% 5% / 0.5);
+      0 6px 20px hsl(350 75% 35% / 0.4),
+      0 12px 40px hsl(280 60% 25% / 0.3),
+      inset 0 2px 0 hsl(350 75% 75% / 0.2),
+      inset 0 -3px 6px hsl(240 15% 5% / 0.6);
   }
 
   .dark .liquid-btn:hover {
     box-shadow:
-      0 8px 25px hsl(350 75% 40% / 0.4),
-      0 16px 50px hsl(280 60% 30% / 0.25),
-      inset 0 1px 0 hsl(350 75% 70% / 0.25),
-      inset 0 -2px 6px hsl(240 15% 5% / 0.6);
-    border-color: hsl(350 75% 55% / 0.5);
+      0 12px 35px hsl(350 75% 45% / 0.55),
+      0 24px 60px hsl(280 60% 35% / 0.35),
+      0 0 40px hsl(350 75% 50% / 0.2),
+      inset 0 2px 0 hsl(350 75% 75% / 0.3),
+      inset 0 -3px 8px hsl(240 15% 5% / 0.7);
+    border-color: hsl(350 75% 60% / 0.6);
+  }
+
+  .dark .liquid-btn .liquid-ripple-effect {
+    background: radial-gradient(circle, hsl(350 75% 70% / 0.5) 0%, hsl(280 60% 50% / 0.3) 40%, transparent 70%);
+  }
+
+  /* ========== Liquid Nav Link with Flip ========== */
+  .liquid-nav-link {
+    position: relative;
+    display: inline-block;
+    perspective: 600px;
+    cursor: pointer;
+  }
+
+  .liquid-nav-link .nav-link-inner {
+    position: relative;
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 12px;
+    background: linear-gradient(
+      140deg,
+      hsl(var(--primary) / 0.5) 0%,
+      hsl(var(--accent) / 0.3) 50%,
+      hsl(var(--primary) / 0.6) 100%
+    );
+    border: 1px solid hsl(var(--accent) / 0.2);
+    box-shadow:
+      0 3px 12px hsl(var(--accent) / 0.15),
+      inset 0 1px 0 hsl(var(--accent-foreground) / 0.15),
+      inset 0 -1px 3px hsl(var(--primary) / 0.2);
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s ease,
+                border-color 0.4s ease;
+    overflow: hidden;
+  }
+
+  .liquid-nav-link .nav-link-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent-foreground) / 0.25) 0%,
+      transparent 40%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .liquid-nav-link .nav-link-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      circle at var(--nav-x, 50%) var(--nav-y, 50%),
+      hsl(var(--accent) / 0.4) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .liquid-nav-link:hover .nav-link-inner {
+    transform: rotateX(12deg) rotateY(-8deg) translateY(-3px) scale(1.08);
+    box-shadow:
+      0 8px 25px hsl(var(--accent) / 0.4),
+      0 16px 40px hsl(var(--primary) / 0.2),
+      inset 0 2px 0 hsl(var(--accent-foreground) / 0.25),
+      inset 0 -2px 5px hsl(var(--primary) / 0.35);
+    border-color: hsl(var(--accent) / 0.6);
+  }
+
+  .liquid-nav-link:hover .nav-link-inner::after {
+    opacity: 1;
+  }
+
+  /* Dark mode nav links */
+  .dark .liquid-nav-link .nav-link-inner {
+    background: linear-gradient(
+      140deg,
+      hsl(350 75% 18% / 0.5) 0%,
+      hsl(280 60% 14% / 0.4) 30%,
+      hsl(350 75% 22% / 0.6) 70%,
+      hsl(220 80% 18% / 0.4) 100%
+    );
+    border-color: hsl(350 75% 55% / 0.25);
+    box-shadow:
+      0 3px 12px hsl(350 75% 30% / 0.25),
+      inset 0 1px 0 hsl(350 75% 65% / 0.12),
+      inset 0 -1px 3px hsl(240 15% 5% / 0.4);
+  }
+
+  .dark .liquid-nav-link:hover .nav-link-inner {
+    transform: rotateX(12deg) rotateY(-8deg) translateY(-3px) scale(1.08);
+    box-shadow:
+      0 8px 25px hsl(350 75% 40% / 0.45),
+      0 16px 40px hsl(280 60% 30% / 0.3),
+      0 0 30px hsl(350 75% 50% / 0.15),
+      inset 0 2px 0 hsl(350 75% 65% / 0.2),
+      inset 0 -2px 5px hsl(240 15% 5% / 0.5);
+    border-color: hsl(350 75% 60% / 0.5);
   }
 
   /* Liquid service card */
